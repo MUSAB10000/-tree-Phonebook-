@@ -1,24 +1,22 @@
-public class Event implements Comparable<Event> {
-    private String EventTitle, Location, ContactName;
+public class Appointment implements Comparable<Event> {
+    private String AppointmentTitle, Location, ContactName;
     private String DataAndTime;
     private Contact Contact_inv;
-    private boolean isAppointment;
 
-    public Event(String eventTitle, String dateAndTime, String location, Contact Contact_inv, boolean isAppointment) {
-        this.EventTitle = eventTitle;
+    public Appointment(String AppointmentTitle, String dateAndTime, String location, Contact Contact_inv) {
+        this.AppointmentTitle = AppointmentTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
         this.Contact_inv = Contact_inv;
         ContactName = Contact_inv.getContactName();
-        this.isAppointment = isAppointment;
     }
 
-    public String getEventTitle() {
-        return EventTitle;
+    public String getAppointmentTitle() {
+        return AppointmentTitle;
     }
 
     public void setEventTitle(String eventTitle) {
-        EventTitle = eventTitle;
+        AppointmentTitle = eventTitle;
     }
 
     public String getDataAndTime() {
@@ -53,21 +51,13 @@ public class Event implements Comparable<Event> {
         this.Contact_inv = Contact_inv;
     }
 
-    public boolean isAppointment() {
-        return isAppointment;
-    }
-
-    public void setAppointment(boolean appointment) {
-        isAppointment = appointment;
-    }
-
     @Override
     public int compareTo(Event other) {
-        return this.EventTitle.compareTo(other.getEventTitle());
+        return this.AppointmentTitle.compareTo(other.getEventTitle());
     }
 
     public String toString() {
-        String str = "\nEvent title: " + EventTitle +
+        String str = "\nEvent title: " + AppointmentTitle +
                 "\nContacts names:   " + ContactName +
                 "\nEvent date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
                 "\nEvent location: " + Location + "\n";
