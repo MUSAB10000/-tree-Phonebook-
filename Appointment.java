@@ -1,4 +1,4 @@
-public class Appointment implements Comparable<Event> {
+public class Appointment implements Comparable<Appointment> {
     private String AppointmentTitle, Location, ContactName;
     private String DataAndTime;
     private Contact Contact_inv;
@@ -52,8 +52,8 @@ public class Appointment implements Comparable<Event> {
     }
 
     @Override
-    public int compareTo(Event other) {
-        return this.AppointmentTitle.compareTo(other.getEventTitle());
+    public int compareTo(Appointment other) {
+        return this.AppointmentTitle.compareTo(other.getAppointmentTitle());
     }
 
     public String toString() {
