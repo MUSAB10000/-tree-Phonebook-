@@ -60,6 +60,69 @@ public class Contact_BST<T> {
         return false;
     }
 
+    public <T> find(String name, int num) {
+        if(empty())
+			return null;
+        current = root;
+        BSTNode<T> q = current;
+        
+        switch (num) { // start switch
+            case 1:
+                while (current != null) {// start while
+                    int x = ((Contact) current.data).getContactName().compareTo(name);
+                    if (x == 0) 
+                        return current.data;
+                    else if (x == -1)
+                        current = current.right;
+                    else
+                        current = current.left;
+                } // end while
+                break;
+            case 2:
+                while (current != null) {// start while
+                    if (current.data instanceof Contact && ((Contact) current.data).getPhoneNumber().equals(name)) {// start
+                                                                                                                    // if
+                        return current.data;
+                    } // end if
+                    current = current.getNext();
+                } // end while
+                break;
+            case 3:
+                while (current != null) {// start while
+                    if (current.data instanceof Contact && ((Contact) current.data).getEmail().equals(name)) {// start
+                                                                                                              // if
+
+                        return current.data;
+                    } // end if
+                    current = current.getNext();
+                } // end while
+                break;
+            case 4:
+                while (current != null) {// start while
+                    if (current.data instanceof Contact && ((Contact) current.data).getAddress().equals(name)) {// start
+                                                                                                                // if
+
+                        return current.data;
+                    } // end if
+                    current = current.getNext();
+                } // end while
+                break;
+            case 5:
+                while (current != null) {// start while
+                    if (current.data instanceof Contact && ((Contact) current.data).getBirthday().equals(name)) {// start
+                                                                                                                 // if
+
+                        return current.data;
+                    } // end if
+                    current = current.getNext();
+                } // end while
+                break;
+        } // end switch
+        current = q;
+        return null;
+    }// end Search
+
+
     public boolean removeKey(String name) {
         // Search for name
         String name1 = name;
