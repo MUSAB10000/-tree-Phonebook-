@@ -16,6 +16,49 @@ public class Contact_BST<T> {
     public void update(T val) {
         current.data = val;
     }
+     public void addContact(Contact contact) {
+        // If the tree is empty, set the root node as the new contact
+        if (root == null) {
+            root = new BSTNode<T>(contact.getContactName(), (T)contact);
+            System.out.println("Contact added successfully");
+        } else {
+            // Check if contact already exists
+            if (ContactExist(contact))
+                System.out.println("Contact already exists");
+            // Insert the contact into the BST
+            insert(root, contact);
+            System.out.println("Contact added successfully");
+        }
+    }
+    
+    private void insert(BSTNode<T> node, Contact contact) {
+        // If the contact's name is less than the current node's key, go to the left subtree
+        if (contact.getContactName().compareTo(node.key) < 0) {
+            if (node.left == null) {
+                // If the left child is null, create a new node with the contact and set it as the left child
+                node.left = new BSTNode<T>(contact.getContactName(), (T)contact);
+            } else {
+                // Recursively insert into the left subtree
+                insert(node.left, contact);
+            }
+        } else {
+            if (node.right == null) {
+                // If the right child is null, create a new node with the contact and set it as the right child
+                node.right = new BSTNode<T>(contact.getContactName(), (T)contact);
+            } else {
+                // Recursively insert into the right subtree
+                insert(node.right, contact);
+            }
+        }
+    }
+    
+    private boolean ContactExist(Contact contact) {
+        // Check if a contact with the same name or phone number already exists in the BST
+        if (find(contact.getContactName(), 1) != null || find(contact.getPhoneNumber(), 2) != null)
+            return true;
+    
+        return false;
+    }
 
     public boolean removeKey(String name) {
         // Search for name
