@@ -14,7 +14,10 @@ public class Contact_BST<T> {
     }
 
     public void update(T val) {
-        current.data = val;
+        if(removeKey(val.getContactName(),(T)val))
+         addContact((Contact)val);
+	    
+     return;
     }
      public void addContact(Contact contact) {
         // If the tree is empty, set the root node as the new contact
