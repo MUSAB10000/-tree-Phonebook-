@@ -27,10 +27,6 @@ public class LinkedList<T> { // start LinkedList
     }
 
     public void add(T val) {
-        if (val instanceof Appointment) {
-            System.out.println(addAppointment((Appointment) val));
-            return;
-        }
         if (val instanceof Event) {
             System.out.println(addEvent((Event) val));
             return;
