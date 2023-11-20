@@ -14,7 +14,7 @@ public class Contact_BST<T> {
     }
 
     public void update(T val) {
-        if(removeKey(((Contact)val).getContactName(),(T)val))
+        if(removeKey(((Contact)val).getContactName()))
          addContact((Contact)val);
 	    
      return;

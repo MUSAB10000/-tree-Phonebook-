@@ -115,7 +115,7 @@ public class LinkedList<T> { // start LinkedList
                     previous = current;
                     current = current.getNext();
                 } else {
-                    ((Event) current.data).contacts.removeKey(x.getContactName());
+                    ((Event) current.data).removeContact(x.getContactName());
                 }
             }
         }
