@@ -63,18 +63,19 @@ public class Contact_BST<T> {
         return false;
     }
 
-    public <T> find(String name, int num) {
+    public T find(String name, int num) {
+        
         if(empty())
 			return null;
         current = root;
-        BSTNode<T> q = current;
+        BSTNode<T> q = (BSTNode<T>)current;
         
         switch (num) { // start switch
             case 1:
                 while (current != null) {// start while
                     int x = ((Contact) current.data).getContactName().compareTo(name);
                     if (x == 0) 
-                        return current.data;
+                        return retrieve();
                     else if (x == -1)
                         current = current.right;
                     else
@@ -82,48 +83,41 @@ public class Contact_BST<T> {
                 } // end while
                 break;
             case 2:
-                while (current != null) {// start while
-                    if (current.data instanceof Contact && ((Contact) current.data).getPhoneNumber().equals(name)) {// start
-                                                                                                                    // if
-                        return current.data;
-                    } // end if
-                    current = current.getNext();
-                } // end while
-                break;
             case 3:
-                while (current != null) {// start while
-                    if (current.data instanceof Contact && ((Contact) current.data).getEmail().equals(name)) {// start
-                                                                                                              // if
-
-                        return current.data;
-                    } // end if
-                    current = current.getNext();
-                } // end while
-                break;
             case 4:
-                while (current != null) {// start while
-                    if (current.data instanceof Contact && ((Contact) current.data).getAddress().equals(name)) {// start
-                                                                                                                // if
-
-                        return current.data;
-                    } // end if
-                    current = current.getNext();
-                } // end while
-                break;
             case 5:
-                while (current != null) {// start while
-                    if (current.data instanceof Contact && ((Contact) current.data).getBirthday().equals(name)) {// start
-                                                                                                                 // if
-
-                        return current.data;
-                    } // end if
-                    current = current.getNext();
-                } // end while
-                break;
+                if (find_Others((BSTNode<Contact>) current, name, num) == true)
+                    return retrieve();
         } // end switch
-        current = q;
+        current = (BSTNode<T>)q;
         return null;
     }// end Search
+
+    private boolean find_Others(BSTNode<Contact> current , String name, int num) {
+        if (current == null) {
+            return false;
+        }
+        switch (num) {
+            case 2:
+                if (name.equals(current.data.getPhoneNumber())) 
+                    return true;
+                break;
+            case 3:
+                if (name.equals(current.data.getEmail())) 
+                    return true;
+                break;
+            case 4:
+                if (name.equals(current.data.getAddress())) 
+                    return true;
+                break;
+            case 5:
+                if (name.equals(current.data.getBirthday())) 
+                    return true;
+                break;
+        }
+
+        return find_Others(current.left, name, num) || find_Others(current.right, name, num);
+    }
 
 
     public boolean removeKey(String name) {
