@@ -34,44 +34,6 @@ public class LinkedList<T> { // start LinkedList
         System.out.println("Can't add this type.");
     }
 
-    private String addAppointment(Appointment e) {
-        if (head == null) {
-            head = new Node<T>((T) e);
-            return "Event added successfully!";
-        }
-        if (dateTimeConflictAppointment(head, e)) // new edit
-            return "Event Not Adeed! DateAndTime Conflict";
-
-        if (head.getData() instanceof Appointment && e.compareTo(((Appointment) head.getData())) < 0) {
-            Node<T> temp = head;
-            head = new Node<T>((T) e);
-            head.setNext(temp);
-            return "Event added successfully!";
-        }
-        Node<T> newNode = new Node<T>((T) e);
-        current = head;
-        Node<T> prev = null;
-        while (current != null) {
-            if (current.getData() instanceof Appointment && e.compareTo((Appointment) current.getData()) < 0) {
-                newNode.setNext(current);
-                prev.setNext(newNode);
-                current = newNode;
-                return "Event added successfully!";
-            }
-            prev = current;
-            current = current.getNext();
-        }
-
-        if (current == null) {
-            prev.setNext(newNode);
-            current = head;
-            return "Event added successfully!";
-        }
-
-        return "Event Not Adeed!";
-
-    }
-
     private String addEvent(Event e) {
         if (head == null) {
             head = new Node<T>((T) e);
@@ -126,66 +88,36 @@ public class LinkedList<T> { // start LinkedList
         return false;
     }
 
-    private boolean dateTimeConflictAppointment(Node<T> head, Appointment event) {// cheack if there is an event that
-                                                                                  // has the same
-        // DateAndTime and the same name, Assuming the name o // contact is unique.
-        current = head;
-        while (current != null) {
-            if (current.getData() instanceof Event) {
-                Appointment existingEvent = (Appointment) current.getData();
-                if (existingEvent.getContactName().equalsIgnoreCase(event.getContactName())
-                        && existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime()))
-                    return true;
-            }
-            current = current.getNext();
-        }
-        return false;
-    }
-
-    public void RemoveAppointment(String ContactAppointment) {
-        if (head == null) {
-            return;
-        }
-
-        if (head.data instanceof Appointment
-                && ((Appointment) head.data).getContactName().equalsIgnoreCase(ContactAppointment)) {
-            head = head.getNext();
-            return;
-        }
-
-        current = head;
-        while (current != null && current.getNext() != null) {
-            if (current.getNext().data instanceof Appointment) {
-                if (((Appointment) current.getNext().data).getContactName().equalsIgnoreCase(ContactAppointment)) {
-                    if (current.getNext().getNext() != null) {
-                        current.setNext(current.getNext().getNext());
-                    } else {
-                        current.setNext(null);
-                    }
-                    return;
-                }
-            }
-            current = current.getNext();
-        }
-    }
-
     public void RemoveEvent(String ContactEvent) {
         if (head == null) {
             return;
         }
-
-        while (head != null && head.data instanceof Event
-                && ((Event) head.data).getContactName().equalsIgnoreCase(ContactEvent)) {
-            head = head.getNext();
-        }
         Node<T> current = head;
+        Node<T> previous = null;
 
-        while (current != null && current.getNext() != null) {
-            if (current.getNext().data instanceof Event
-                    && ((Event) current.getNext().data).getContactName().equalsIgnoreCase(ContactEvent)) {
-                current.setNext(current.getNext().getNext());
-            } else {
-                current = current.getNext();
+        while (current != null) {
+            if (((Event) current.data).isAppointment())
+                if (((Event) current.data).contacts.root.data.getContactName().equalsIgnoreCase(ContactEvent))
+                    if (previous != null) {
+                        previous.setNext(current.getNext());
+                        current = current.getNext();
+                    } else {
+                        head = current.getNext();
+                        current = head;
+                    }
+                else {
+                    previous = current;
+                    current = current.getNext();
+                }
+
+            else {
+                Contact x = (((Event) current.data).contacts.find(ContactEvent, 1));
+                if (x == null) {
+                    previous = current;
+                    current = current.getNext();
+                } else {
+                    ((Event) current.data).contacts.removeKey(x.getContactName());
+                }
             }
         }
     }
