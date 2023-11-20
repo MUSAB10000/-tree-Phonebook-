@@ -79,8 +79,7 @@ public class LinkedList<T> { // start LinkedList
         while (current != null) {
             if (current.getData() instanceof Event) {
                 Event existingEvent = (Event) current.getData();
-                if (existingEvent.getContactName().equalsIgnoreCase(event.getContactName())
-                        && existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime()))
+                if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime()))
                     return true;
             }
             current = current.getNext();
