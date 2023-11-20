@@ -1,17 +1,18 @@
 public class Event implements Comparable<Event> {
     private String EventTitle, Location, ContactName;
     private String DataAndTime;
-    private Contact Contact_inv;
     private boolean isAppointment;
+    public Contact_BST<Contact> contacts;
 
-    public Event(String eventTitle, String dateAndTime, String location, Contact Contact_inv, boolean isAppointment) {
+    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment) {
         this.EventTitle = eventTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
-        this.Contact_inv = Contact_inv;
-        ContactName = Contact_inv.getContactName();
+        ContactName = contactsName;
         this.isAppointment = isAppointment;
+        contacts=new Contact_BST<>();
     }
+
 
     public String getEventTitle() {
         return EventTitle;
@@ -44,14 +45,7 @@ public class Event implements Comparable<Event> {
     public void setContactName(String contactName) {
         ContactName = contactName;
     }
-
-    public Contact getContact_inv() {
-        return Contact_inv;
-    }
-
-    public void setContact_inv(Contact Contact_inv) {
-        this.Contact_inv = Contact_inv;
-    }
+    
 
     public boolean isAppointment() {
         return isAppointment;
@@ -60,6 +54,18 @@ public class Event implements Comparable<Event> {
     public void setAppointment(boolean appointment) {
         isAppointment = appointment;
     }
+    
+    public void addC(Contact other) {
+      contacts.addContact(other);
+     }
+
+     public boolean removeContact(String name){
+        if(isAppointment)
+         return false;
+
+          return contacts.removeKey(name);
+
+     }
 
     @Override
     public int compareTo(Event other) {
