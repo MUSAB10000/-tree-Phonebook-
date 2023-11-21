@@ -159,8 +159,11 @@ public class PhoneBook {
                         System.out.print("Enter event location: ");
                         String location = input.next();
                         location += input.nextLine();
-                        Event event1 = new Event(eventTitle, dateTime, location, contactName, false);
-                        events.add(event1);
+                        try {Event event1 = new Event(eventTitle, dateTime, location, contactName, false , contacts);
+                        events.add(event1);}
+                        catch (Exception e){
+                            e.getMessage();
+                        }
                     } else {
                         System.out.print("Enter appointment title: ");
                         String eventTitle = input.next();
@@ -174,17 +177,13 @@ public class PhoneBook {
                         System.out.print("Enter appointment location: ");
                         String location = input.next();
                         location += input.nextLine();
-                        Event event1 = new Event(eventTitle, dateTime, location, contactName, true);
-                        events.add(event1);
+                        try {Event event1 = new Event(eventTitle, dateTime, location, contactName, true , contacts);
+                        events.add(event1);}
+                        catch (Exception e){
+                            e.getMessage();
+                        }
                     }
                     break;
-
-                /*
-                 * Contact contact = contacts.find(contactName, 1);
-                 * if (contact == null){
-                 * System.out.println("the contact name not found in event");
-                 * break;}
-                 */
                 case 5:
                     System.out.println("Enter search criteria:\r\n" + //
                             "1. contact name\r\n" + //
@@ -245,13 +244,14 @@ public class PhoneBook {
         return Firstname;
     }
 
-    private void PrintByFirstName(String Name ) {//Print the Contact of the same FirstName
+    private void PrintByFirstName(String Name) {//Print the Contact of the same FirstName
         if (contacts.empty())
             System.out.println("No Contacts found!");
 
-        contacts.findfirst();
-        while (contacts.last() == false) {
-            if (Name.compareToIgnoreCase(Firstname((contacts.retrieve()).getContactName()))) == 0)
+        contacts.current = contacts.root;
+        BSTNode<Contact> q = null;
+        while (contacts.current == null) {
+            if (Name.compareToIgnoreCase(Firstname((contacts.retrieve()).getContactName())) == 0)
                 System.out.println(contacts.retrieve().toString() + "\n");
 
             contacts.findnext();

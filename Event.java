@@ -1,16 +1,19 @@
 public class Event implements Comparable<Event> {
-    private String EventTitle, Location;
+    private String EventTitle, Location, contactsName;
     private String DataAndTime;
     private boolean isAppointment;
     public Contact_BST<Contact> contacts;
 
-    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment, Contact_BST Contacts1) {
+    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment, Contact_BST Contacts1) throws Exception {
         this.EventTitle = eventTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
         this.isAppointment = isAppointment;
+        this.contactsName = contactsName;
         contacts=new Contact_BST<>();
-        setContactsName()
+        if (setContactsName(contacts,Contacts1,contactsName) == false)
+        throw new Exception("Contact not found");
+        
     }
 
 
@@ -38,19 +41,19 @@ public class Event implements Comparable<Event> {
         Location = location;
     }
 
-    public String getContactName() {
-        return ContactName;
+    public String getcontactsName() {
+        return contactsName;
     }
 
-    public boolean setContactsName(Contact_BST<Contact> contacts, Contact_BST<Contact> Contacts1, String contactsName) {
+    public boolean setContactsName(Contact_BST<Contact> contacts, Contact_BST<Contact> Contacts1, String contactsName1) {
         String Firstname = "";
-        for (int i = 0; i < contactsName.length(); i++) {
-            if (contactsName.substring(i, i) != ",")
-                Firstname += contactsName.substring(i, i);
+        for (int i = 0; i < contactsName1.length(); i++) {
+            if (contactsName1.substring(i, i) != ",")
+                Firstname += contactsName1.substring(i, i);
             else{
                 Contact con = contacts.find(Firstname, 1);
                 if (con != null) {
-                contacts.addContact(contacts.find(Firstname, i));
+                contacts.addContact(con);
                 Firstname = "";
                 }
                 else
@@ -89,14 +92,14 @@ public class Event implements Comparable<Event> {
     public String toString() {
          if(isAppointment){
              String str = "\nAppointment title: " + EventTitle +
-                "\nContacts names:   " + ContactName +
+                "\nContact name:   " + contactsName +
                 "\nAppointment date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
                 "\nAppointment location: " + Location + "\n";
         return str;
          }
              
         String str = "\nEvent title: " + EventTitle +
-                "\nContacts names:   " + ContactName +
+                "\nContact names:   " + contactsName +
                 "\nEvent date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
                 "\nEvent location: " + Location + "\n";
         return str;

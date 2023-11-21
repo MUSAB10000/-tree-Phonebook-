@@ -122,7 +122,7 @@ public class LinkedList<T> { // start LinkedList
     }
 
     public T SearchEvent(Node<T> head, String name, int num) { // start PrintEvent
-        if (head == null) { // start if
+        f (head == null) { // start if
             return null;
         } // end if
         current = head;
