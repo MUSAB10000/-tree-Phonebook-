@@ -4,13 +4,13 @@ public class Event implements Comparable<Event> {
     private boolean isAppointment;
     public Contact_BST<Contact> contacts;
 
-    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment) {
+    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment, Contact_BST Contacts1) {
         this.EventTitle = eventTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
         this.isAppointment = isAppointment;
         contacts=new Contact_BST<>();
-
+        setContactsName()
     }
 
 
@@ -42,17 +42,22 @@ public class Event implements Comparable<Event> {
         return ContactName;
     }
 
-    public void setContactsName(Contact_BST<Contact> contacts,String contactsName) {
+    public boolean setContactsName(Contact_BST<Contact> contacts, Contact_BST<Contact> Contacts1, String contactsName) {
         String Firstname = "";
         for (int i = 0; i < contactsName.length(); i++) {
             if (contactsName.substring(i, i) != ",")
                 Firstname += contactsName.substring(i, i);
             else{
-                Contact contact = contacts.find(Firstname, 1);
+                Contact con = contacts.find(Firstname, 1);
+                if (con != null) {
                 contacts.addContact(contacts.find(Firstname, i));
                 Firstname = "";
+                }
+                else
+                return false;
             }
         }
+        return true;
     }
     
 
