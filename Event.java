@@ -86,7 +86,15 @@ public class Event implements Comparable<Event> {
         return this.EventTitle.compareTo(other.getEventTitle());
     }
 
-    public String toString() {//needs edit
+    public String toString() {
+         if(isAppointment){
+             String str = "\nAppointment title: " + EventTitle +
+                "\nContacts names:   " + ContactName +
+                "\nAppointment date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
+                "\nAppointment location: " + Location + "\n";
+        return str;
+         }
+             
         String str = "\nEvent title: " + EventTitle +
                 "\nContacts names:   " + ContactName +
                 "\nEvent date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
