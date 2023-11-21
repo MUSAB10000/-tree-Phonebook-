@@ -1,5 +1,5 @@
 public class Event implements Comparable<Event> {
-    private String EventTitle, Location, ContactName;
+    private String EventTitle, Location;
     private String DataAndTime;
     private boolean isAppointment;
     public Contact_BST<Contact> contacts;
@@ -8,9 +8,9 @@ public class Event implements Comparable<Event> {
         this.EventTitle = eventTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
-        ContactName = contactsName;
         this.isAppointment = isAppointment;
         contacts=new Contact_BST<>();
+
     }
 
 
@@ -42,8 +42,17 @@ public class Event implements Comparable<Event> {
         return ContactName;
     }
 
-    public void setContactName(String contactName) {
-        ContactName = contactName;
+    public void setContactsName(Contact_BST<Contact> contacts,String contactsName) {
+        String Firstname = "";
+        for (int i = 0; i < contactsName.length(); i++) {
+            if (contactsName.substring(i, i) != ",")
+                Firstname += contactsName.substring(i, i);
+            else{
+                Contact contact = contacts.find(Firstname, 1);
+                contacts.addContact(contacts.find(Firstname, i));
+                Firstname = "";
+            }
+        }
     }
     
 

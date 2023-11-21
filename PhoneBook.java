@@ -192,14 +192,14 @@ public class PhoneBook {
                     switch (choice2) {
                         case 1:
                             System.out.println("Enter the Contact Name:");
-                            contactName = input.next();
+                            String contactName = input.next();
                             contactName += input.nextLine();
                             Event E = (Event) events.SearchEvent(events.getHead(), contactName, choice2);
                             System.out.println(E.toString());
                             break;
                         case 2:
                             System.out.println("Enter the event title:");
-                            eventTitle = input.next();
+                            String eventTitle = input.next();
                             eventTitle += input.nextLine();
                             if (events.SearchEvent(events.getHead(), eventTitle, 2) != null)
                                 PrintEventTitle(eventTitle);
