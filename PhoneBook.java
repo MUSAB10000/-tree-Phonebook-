@@ -196,15 +196,13 @@ public class PhoneBook {
                             System.out.println("Enter the Contact Name:");
                             String contactName = input.next();
                             contactName += input.nextLine();
-                            Event E = (Event) events.SearchEvent(events.getHead(), contactName, choice2);
-                            System.out.println(E.toString());
+                            events.SearchEvent(events.getHead(), contactName, choice2);
                             break;
                         case 2:
                             System.out.println("Enter the event title:");
                             String eventTitle = input.next();
                             eventTitle += input.nextLine();
-                            if (events.SearchEvent(events.getHead(), eventTitle, 2) != null)
-                                PrintEventTitle(eventTitle);
+                            events.SearchEvent(events.getHead(), eventTitle, 2);
                             break;
                         default:
                             System.out.println("Wrong number, please do it again");
@@ -253,8 +251,7 @@ public class PhoneBook {
 
     private void printContactsByFirstName(BSTNode<Contact> node, String name) {
         if (node != null) {
-            String contactName = node.data.getContactName();// we should to cheack before run the program
-            String firstName = extractFirstName(contactName);
+            String firstName = extractFirstName(node.data.getContactName());// we should to cheack before run the program
 
             if (name.compareToIgnoreCase(firstName) < 0) {
                 printContactsByFirstName(node.left, name);
