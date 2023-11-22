@@ -47,13 +47,10 @@ public class PhoneBook {
                     String notes = input.next();
                     notes += input.nextLine();
                     Contact x = new Contact(name, phoneNumber, email, address, birthday, notes);
-                    if (contacts.find(name, 0) == null) {
+                    
                         contacts.addContact(x);
                         break;
-                    } else {
-                        System.out.println("Contact Already Exist!");
-                        break;
-                    }
+                    
                 case 2:
                     System.out.print("Enter search criteria:\n" +
                             "1. Name\n" +
@@ -258,7 +255,7 @@ public class PhoneBook {
             } else if (name.compareToIgnoreCase(firstName) > 0) {
                 printContactsByFirstName(node.right, name);
             } else {
-                System.out.println(node.toString() + "\n");
+                System.out.println(node.data.toString() + "\n");
                 // In case multiple contacts have the same first name, you might want to
                 // traverse both left and right subtrees.
                 printContactsByFirstName(node.left, name);
