@@ -121,36 +121,28 @@ public class LinkedList<T> { // start LinkedList
         }
     }
 
-    public T SearchEvent(Node<T> head, String name, int num) { // start PrintEvent
-        f (head == null) { // start if
-            return null;
-        } // end if
+    public void SearchEvent(Node<T> head, String name, int num) { // start PrintEvent
+        if (head == null) 
+            return ;
+        
         current = head;
         switch (num) { // start switch
             case 1:
                 while (current != null) {// start while
-                    if (current.data instanceof Event && ((Event) current.data).getContactName().equals(name)) {// start
-                                                                                                                // if
-                        return current.data;
-                    } // end if
+                   if (((Event)current.getData()).Getcontacts().find(name, 1) != null) 
+                        current.data.toString();
+                    
                     current = current.getNext();
                 } // end while
                 break;
             case 2:
                 while (current != null) {// start while
-                    if (current.data instanceof Event && ((Event) current.data).getEventTitle().equals(name)) {// start
-                                                                                                               // if
-
-                        System.out.println("Event found!");
-                        return current.data;
-                    } // end if
+                    if (current.data instanceof Event && ((Event) current.data).getEventTitle().equals(name))
+                        current.data.toString();
                     current = current.getNext();
                 } // end while
                 break;
         } // end switch
-
-        return null;
-
     }
 
     

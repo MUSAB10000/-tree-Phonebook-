@@ -41,6 +41,10 @@ public class Event implements Comparable<Event> {
         Location = location;
     }
 
+    public Contact_BST<Contact> Getcontacts() {
+        return contacts;
+    }
+    
     public String getcontactsName() {
         return contactsName;
     }
