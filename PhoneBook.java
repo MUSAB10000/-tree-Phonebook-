@@ -159,9 +159,10 @@ public class PhoneBook {
                         System.out.print("Enter event location: ");
                         String location = input.next();
                         location += input.nextLine();
-                        try {Event event1 = new Event(eventTitle, dateTime, location, contactName, false , contacts);
-                        events.add(event1);}
-                        catch (Exception e){
+                        try {
+                            Event event1 = new Event(eventTitle, dateTime, location, contactName, false, contacts);
+                            events.add(event1);
+                        } catch (Exception e) {
                             e.getMessage();
                         }
                     } else {
@@ -177,9 +178,10 @@ public class PhoneBook {
                         System.out.print("Enter appointment location: ");
                         String location = input.next();
                         location += input.nextLine();
-                        try {Event event1 = new Event(eventTitle, dateTime, location, contactName, true , contacts);
-                        events.add(event1);}
-                        catch (Exception e){
+                        try {
+                            Event event1 = new Event(eventTitle, dateTime, location, contactName, true, contacts);
+                            events.add(event1);
+                        } catch (Exception e) {
                             e.getMessage();
                         }
                     }
@@ -214,7 +216,7 @@ public class PhoneBook {
 
                     String FName = input.next();
 
-                    PrintByFirstName(FName);
+                    printByFirstName(FName);
                     break;
                 case 7:
                     PrintAllEvent();
@@ -232,33 +234,40 @@ public class PhoneBook {
 
     }
 
-    private String Firstname(String name) {// Takes full name then Substring the last giving a result of first name
-                                           // only, Assuming what after the space of the full name is last name
-        String Firstname = "";
-        for (int i = 0; i < name.length(); i++) {
-            if (name.substring(i, i) != " ")
-                Firstname += name.substring(i, i);
-            else
-                break;
+    private String extractFirstName(String name) {
+        int index = name.indexOf(' ');
+        if (index != -1) {
+            return name.substring(0, index);
         }
-        return Firstname;
+        return name;
     }
 
-    private void PrintByFirstName(String Name) {//Print the Contact of the same FirstName
-        if (contacts.empty())
+    private void printByFirstName(String name) {
+        if (contacts.empty()) {
             System.out.println("No Contacts found!");
-
-        contacts.current = contacts.root;
-        BSTNode<Contact> q = null;
-        while (contacts.current == null) {
-            if (Name.compareToIgnoreCase(Firstname((contacts.retrieve()).getContactName())) == 0)
-                System.out.println(contacts.retrieve().toString() + "\n");
-
-            contacts.findnext();
+            return;
         }
-        if ((Name.compareToIgnoreCase(Firstname((contacts.retrieve()).getContactName()))) == 0)
-            System.out.println(contacts.retrieve().toString() + "\n");
 
+        printContactsByFirstName(contacts.root, name);
+    }
+
+    private void printContactsByFirstName(BSTNode<Contact> root, String name) {
+        if (root != null) {
+            String contactName = root.data.getContactName();// we should to cheack before run the program
+            String firstName = extractFirstName(contactName);
+
+            if (name.compareToIgnoreCase(firstName) < 0) {
+                printContactsByFirstName(root.left, name);
+            } else if (name.compareToIgnoreCase(firstName) > 0) {
+                printContactsByFirstName(root.right, name);
+            } else {
+                System.out.println(root.toString() + "\n");
+                // In case multiple contacts have the same first name, you might want to
+                // traverse both left and right subtrees.
+                printContactsByFirstName(root.left, name);
+                printContactsByFirstName(root.right, name);
+            }
+        }
     }
 
     private void PrintAllEvent() {
