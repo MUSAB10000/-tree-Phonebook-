@@ -251,21 +251,21 @@ public class PhoneBook {
         printContactsByFirstName(contacts.root, name);
     }
 
-    private void printContactsByFirstName(BSTNode<Contact> root, String name) {
-        if (root != null) {
-            String contactName = root.data.getContactName();// we should to cheack before run the program
+    private void printContactsByFirstName(BSTNode<Contact> node, String name) {
+        if (node != null) {
+            String contactName = node.data.getContactName();// we should to cheack before run the program
             String firstName = extractFirstName(contactName);
 
             if (name.compareToIgnoreCase(firstName) < 0) {
-                printContactsByFirstName(root.left, name);
+                printContactsByFirstName(node.left, name);
             } else if (name.compareToIgnoreCase(firstName) > 0) {
-                printContactsByFirstName(root.right, name);
+                printContactsByFirstName(node.right, name);
             } else {
-                System.out.println(root.toString() + "\n");
+                System.out.println(node.toString() + "\n");
                 // In case multiple contacts have the same first name, you might want to
                 // traverse both left and right subtrees.
-                printContactsByFirstName(root.left, name);
-                printContactsByFirstName(root.right, name);
+                printContactsByFirstName(node.left, name);
+                printContactsByFirstName(node.right, name);
             }
         }
     }
