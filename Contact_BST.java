@@ -26,8 +26,9 @@ public class Contact_BST<T> {
             System.out.println("Contact added successfully");
         } else {
             // Check if contact already exists
-            if (ContactExist(contact))
+            if (ContactExist(contact)){
                 System.out.println("Contact already exists");
+                 return;}
             // Insert the contact into the BST
             insert(root, contact);
             System.out.println("Contact added successfully");
