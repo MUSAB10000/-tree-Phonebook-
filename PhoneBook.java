@@ -47,10 +47,10 @@ public class PhoneBook {
                     String notes = input.next();
                     notes += input.nextLine();
                     Contact x = new Contact(name, phoneNumber, email, address, birthday, notes);
-                    
-                        contacts.addContact(x);
-                        break;
-                    
+
+                    contacts.addContact(x);
+                    break;
+
                 case 2:
                     System.out.print("Enter search criteria:\n" +
                             "1. Name\n" +
@@ -122,17 +122,19 @@ public class PhoneBook {
                     }// end small switch
                     break;
                 case 3:
-                    System.out.println("Enter phone number to delete a contact");
-                    String phone = input.next();
+                    System.out.println("Enter contact name to delete it ");
+                    String name_to_delete = input.next();
 
-                    Contact numberPhon = contacts.find(phone, 2);
-                    if (numberPhon == null) {
-                        System.out.println("Contact Number Not Found!");
+                    Contact numberPhon = contacts.find(name_to_delete, 1);
+                    if (numberPhon != null) {
+                        events.RemoveEvent(numberPhon.getContactName());
+                        contacts.removeKey(name_to_delete);
+                        System.out.println("delete contact");
+                        break;
+                    } else {
+                        System.out.println("Contact name Not Found!");
                         break;
                     }
-                    contacts.removeKey(phone);
-                    events.RemoveEvent(numberPhon.getContactName());
-                    break;
                 case 4:// needs edit
                     System.out.print("Enter type:\r\n" + //
                             "1. event\r\n" + //
@@ -248,7 +250,8 @@ public class PhoneBook {
 
     private void printContactsByFirstName(BSTNode<Contact> node, String name) {
         if (node != null) {
-            String firstName = extractFirstName(node.data.getContactName());// we should to cheack before run the program
+            String firstName = extractFirstName(node.data.getContactName());// we should to cheack before run the
+                                                                            // program
 
             if (name.compareToIgnoreCase(firstName) < 0) {
                 printContactsByFirstName(node.left, name);

@@ -96,7 +96,7 @@ public class LinkedList<T> { // start LinkedList
 
         while (current != null) {
             if (((Event) current.data).isAppointment())
-                if (((Event) current.data).contacts.root.data.getContactName().equalsIgnoreCase(ContactEvent))
+                if (((Event) current.data).getcontactsName().equalsIgnoreCase(ContactEvent))
                     if (previous != null) {
                         previous.setNext(current.getNext());
                         current = current.getNext();
@@ -122,16 +122,16 @@ public class LinkedList<T> { // start LinkedList
     }
 
     public void SearchEvent(Node<T> head, String name, int num) { // start PrintEvent
-        if (head == null) 
-            return ;
-        
+        if (head == null)
+            return;
+
         current = head;
         switch (num) { // start switch
             case 1:
                 while (current != null) {// start while
-                   if (((Event)current.getData()).Getcontacts().find(name, 1) != null) 
+                    if (((Event) current.getData()).Getcontacts().find(name, 1) != null)
                         current.data.toString();
-                    
+
                     current = current.getNext();
                 } // end while
                 break;
@@ -145,5 +145,4 @@ public class LinkedList<T> { // start LinkedList
         } // end switch
     }
 
-    
 }

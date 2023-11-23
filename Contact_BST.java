@@ -14,68 +14,74 @@ public class Contact_BST<T> {
     }
 
     public void update(T val) {
-        if(removeKey(((Contact)val).getContactName()))
-         addContact((Contact)val);
-	    
-     return;
+        if (removeKey(((Contact) val).getContactName()))
+            addContact((Contact) val);
+
+        return;
     }
-     public void addContact(Contact contact) {
+
+    public void addContact(Contact contact) {
         // If the tree is empty, set the root node as the new contact
         if (root == null) {
-            root = new BSTNode<T>(contact.getContactName(), (T)contact);
+            root = new BSTNode<T>(contact.getContactName(), (T) contact);
             System.out.println("Contact added successfully");
         } else {
             // Check if contact already exists
-            if (ContactExist(contact)){
+            if (ContactExist(contact)) {
                 System.out.println("Contact already exists");
-                 return;}
+                return;
+            }
             // Insert the contact into the BST
             insert(root, contact);
             System.out.println("Contact added successfully");
         }
     }
-    
+
     private void insert(BSTNode<T> node, Contact contact) {
-        // If the contact's name is less than the current node's key, go to the left subtree
+        // If the contact's name is less than the current node's key, go to the left
+        // subtree
         if (contact.getContactName().compareTo(node.key) < 0) {
             if (node.left == null) {
-                // If the left child is null, create a new node with the contact and set it as the left child
-                node.left = new BSTNode<T>(contact.getContactName(), (T)contact);
+                // If the left child is null, create a new node with the contact and set it as
+                // the left child
+                node.left = new BSTNode<T>(contact.getContactName(), (T) contact);
             } else {
                 // Recursively insert into the left subtree
                 insert(node.left, contact);
             }
         } else {
             if (node.right == null) {
-                // If the right child is null, create a new node with the contact and set it as the right child
-                node.right = new BSTNode<T>(contact.getContactName(), (T)contact);
+                // If the right child is null, create a new node with the contact and set it as
+                // the right child
+                node.right = new BSTNode<T>(contact.getContactName(), (T) contact);
             } else {
                 // Recursively insert into the right subtree
                 insert(node.right, contact);
             }
         }
     }
-    
+
     private boolean ContactExist(Contact contact) {
-        // Check if a contact with the same name or phone number already exists in the BST
+        // Check if a contact with the same name or phone number already exists in the
+        // BST
         if (find(contact.getContactName(), 1) != null || find(contact.getPhoneNumber(), 2) != null)
             return true;
-    
+
         return false;
     }
 
     public T find(String name, int num) {
-        
-        if(empty())
-			return null;
+
+        if (empty())
+            return null;
         current = root;
-        BSTNode<T> q = (BSTNode<T>)current;
-        
+        BSTNode<T> q = (BSTNode<T>) current;
+
         switch (num) { // start switch
             case 1:
                 while (current != null) {// start while
                     int x = ((Contact) current.data).getContactName().compareTo(name);
-                    if (x == 0) 
+                    if (x == 0)
                         return retrieve();
                     else if (x == -1)
                         current = current.right;
@@ -90,36 +96,35 @@ public class Contact_BST<T> {
                 if (find_Others((BSTNode<Contact>) current, name, num) == true)
                     return retrieve();
         } // end switch
-        current = (BSTNode<T>)q;
+        current = (BSTNode<T>) q;
         return null;
     }// end Search
 
-    private boolean find_Others(BSTNode<Contact> current , String name, int num) {
+    private boolean find_Others(BSTNode<Contact> current, String name, int num) {
         if (current == null) {
             return false;
         }
         switch (num) {
             case 2:
-                if (name.equals(current.data.getPhoneNumber())) 
+                if (name.equals(current.data.getPhoneNumber()))
                     return true;
                 break;
             case 3:
-                if (name.equals(current.data.getEmail())) 
+                if (name.equals(current.data.getEmail()))
                     return true;
                 break;
             case 4:
-                if (name.equals(current.data.getAddress())) 
+                if (name.equals(current.data.getAddress()))
                     return true;
                 break;
             case 5:
-                if (name.equals(current.data.getBirthday())) 
+                if (name.equals(current.data.getBirthday()))
                     return true;
                 break;
         }
 
         return find_Others(current.left, name, num) || find_Others(current.right, name, num);
     }
-
 
     public boolean removeKey(String name) {
         // Search for name
