@@ -128,7 +128,6 @@ public class PhoneBook {
                     Contact numberPhon = contacts.find(name_to_delete, 1);
                     if (numberPhon != null) {
                         events.RemoveEvent(numberPhon.getContactName());
-                        contacts.removeKey(name_to_delete);
                         System.out.println("delete contact");
                         break;
                     } else {
@@ -158,12 +157,11 @@ public class PhoneBook {
                         System.out.print("Enter event location: ");
                         String location = input.next();
                         location += input.nextLine();
-                        try {
-                            Event event1 = new Event(eventTitle, dateTime, location, contactName, false, contacts);
-                            events.add(event1);
-                        } catch (Exception e) {
-                            e.getMessage();
-                        }
+                        Event event1 = new Event(eventTitle, dateTime, location, contactName, false, contacts);
+
+                        if(event1.setContactsName(event1.contacts, contacts, contactName))
+                         events.add(event1);
+                        
                     } else {
                         System.out.print("Enter appointment title: ");
                         String eventTitle = input.next();
@@ -177,12 +175,10 @@ public class PhoneBook {
                         System.out.print("Enter appointment location: ");
                         String location = input.next();
                         location += input.nextLine();
-                        try {
+                       
                             Event event1 = new Event(eventTitle, dateTime, location, contactName, true, contacts);
+
                             events.add(event1);
-                        } catch (Exception e) {
-                            e.getMessage();
-                        }
                     }
                     break;
                 case 5:

@@ -84,9 +84,9 @@ public class Contact_BST<T> {
                     if (x == 0)
                         return retrieve();
                     else if (x == -1)
-                        current = current.right;
-                    else
                         current = current.left;
+                    else
+                        current = current.right;
                 } // end while
                 break;
             case 2:

@@ -4,15 +4,14 @@ public class Event implements Comparable<Event> {
     private boolean isAppointment;
     public Contact_BST<Contact> contacts;
 
-    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment, Contact_BST Contacts1) throws Exception {
+    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment, Contact_BST Contacts1) {
         this.EventTitle = eventTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
         this.isAppointment = isAppointment;
         this.contactsName = contactsName;
         contacts=new Contact_BST<>();
-        if (setContactsName(contacts,Contacts1,contactsName) == false)
-        throw new Exception("Contact not found");
+       
         
     }
 
@@ -51,10 +50,22 @@ public class Event implements Comparable<Event> {
 
     public boolean setContactsName(Contact_BST<Contact> contacts, Contact_BST<Contact> Contacts1, String contactsName1) {
         String Firstname = "";
+
+
+        if(isAppointment){
+            Contact con = contacts.find(Firstname, 1);
+               if (con != null) 
+                contacts.addContact(con);
+            return true;   
+        }
+        
+
         for (int i = 0; i < contactsName1.length(); i++) {
-            if (contactsName1.substring(i, i) != ",")
-                Firstname += contactsName1.substring(i, i);
-            else{
+            int index = contactsName1.indexOf(',');
+              Firstname +=contactsName1.substring(i, index+i-1);
+              contactsName1=contactsName1.substring(i+1,contactsName1.length());
+
+            if(index!=-1){
                 Contact con = contacts.find(Firstname, 1);
                 if (con != null) {
                 contacts.addContact(con);
@@ -62,8 +73,17 @@ public class Event implements Comparable<Event> {
                 }
                 else
                 return false;
+            }else{
+                Contact con = contacts.find(contactsName1, 1);
+                if (con != null) {
+                contacts.addContact(con);
+
+                }
+                else
+                return false;
             }
         }
+        
         return true;
     }
     
@@ -76,13 +96,10 @@ public class Event implements Comparable<Event> {
         isAppointment = appointment;
     }
     
-    public void addC(Contact other) {
-      contacts.addContact(other);
-     }
+    
 
-     public boolean removeContact(String name){
-        if(isAppointment)
-         return false;
+    public boolean removeContact(String name){
+      
 
           return contacts.removeKey(name);
 
@@ -108,4 +125,9 @@ public class Event implements Comparable<Event> {
                 "\nEvent location: " + Location + "\n";
         return str;
     }
+    
+   
+        
+       
+   
 }
