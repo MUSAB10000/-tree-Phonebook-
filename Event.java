@@ -54,9 +54,11 @@ public class Event implements Comparable<Event> {
 
         if(isAppointment){
             Contact con = contacts.find(Firstname, 1);
-               if (con != null) 
-                contacts.addContact(con);
-            return true;   
+               if (con != null) {
+                    contacts.addContact(con);
+                    return true;  
+                }   
+                return false;
         }
         
 
