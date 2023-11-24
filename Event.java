@@ -60,33 +60,40 @@ public class Event implements Comparable<Event> {
                 }   
                 return false;
         }
-        
+        String c = contactsName1;
+        int index = 0;
+		for (int i = 0; i < contactsName1.length(); i++) {
+			if ( i == 0) {
+				index = c.indexOf(',');
+				if (index == -1)
+	            	break;
+				Firstname +=c.substring(0, index);
+				c=c.substring(index+1,c.length());
+			}
+			else {
+				index = c.indexOf(',');
+				if (index == -1)
+	            	break;
+	            Firstname +=c.substring(0, index);
+	            c=c.substring(index+1,c.length());
+			}
 
-        for (int i = 0; i < contactsName1.length(); i++) {
-            int index = contactsName1.indexOf(',');
-              Firstname +=contactsName1.substring(i, index+i-1);
-              contactsName1=contactsName1.substring(i+1,contactsName1.length());
-
-            if(index!=-1){
-                Contact con = contacts.find(Firstname, 1);
-                if (con != null) {
+            Contact con = contacts.find(Firstname, 1);
+            if (con != null) {
                 contacts.addContact(con);
                 Firstname = "";
-                }
+            }
                 else
                 return false;
-            }else{
-                Contact con = contacts.find(contactsName1, 1);
+        } //end for
+                Contact con = contacts.find(c, 1);
                 if (con != null) {
                 contacts.addContact(con);
-
+                return true;
                 }
                 else
                 return false;
-            }
-        }
-        
-        return true;
+            
     }
     
 
