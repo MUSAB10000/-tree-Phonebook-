@@ -157,7 +157,7 @@ public class PhoneBook {
                         System.out.print("Enter event location: ");
                         String location = input.next();
                         location += input.nextLine();
-                        Event event1 = new Event(eventTitle, dateTime, location, contactName, false, contacts);
+                        Event event1 = new Event(eventTitle, dateTime, location, contactName, false);
 
                         if(event1.setContactsName(event1.contacts, contacts, contactName))
                          events.add(event1);
@@ -176,7 +176,7 @@ public class PhoneBook {
                         String location = input.next();
                         location += input.nextLine();
                        
-                            Event event1 = new Event(eventTitle, dateTime, location, contactName, true, contacts);
+                            Event event1 = new Event(eventTitle, dateTime, location, contactName, true);
 
                             events.add(event1);
                     }

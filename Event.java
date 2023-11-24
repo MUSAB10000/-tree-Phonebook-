@@ -4,7 +4,7 @@ public class Event implements Comparable<Event> {
     private boolean isAppointment;
     public Contact_BST<Contact> contacts;
 
-    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment, Contact_BST Contacts1) {
+    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment) {
         this.EventTitle = eventTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
