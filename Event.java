@@ -53,7 +53,7 @@ public class Event implements Comparable<Event> {
 
 
         if(isAppointment){
-            Contact con = contacts.find(Firstname, 1);
+            Contact con = Contacts1.find(Firstname, 1);
                if (con != null) {
                     contacts.addContact(con);
                     return true;  
@@ -78,7 +78,7 @@ public class Event implements Comparable<Event> {
 	            c=c.substring(index+1,c.length());
 			}
 
-            Contact con = contacts.find(Firstname, 1);
+            Contact con = Contacts1.find(Firstname, 1);
             if (con != null) {
                 contacts.addContact(con);
                 Firstname = "";
@@ -86,7 +86,7 @@ public class Event implements Comparable<Event> {
                 else
                 return false;
         } //end for
-                Contact con = contacts.find(c, 1);
+                Contact con = Contacts1.find(c, 1);
                 if (con != null) {
                 contacts.addContact(con);
                 return true;
