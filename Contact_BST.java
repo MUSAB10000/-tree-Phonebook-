@@ -84,17 +84,18 @@ public class Contact_BST<T> {
                     if (x == 0)
                         return retrieve();
                     else if (x == -1)
-                        current = current.left;
-                    else
                         current = current.right;
+                    else
+                        current = current.left;
                 } // end while
                 break;
             case 2:
             case 3:
             case 4:
             case 5:
-                if (find_Others((BSTNode<Contact>) current, name, num) == true)
-                    return retrieve();
+                if (find_Others((BSTNode<Contact>) current, name, num) == true){
+                    return retrieve();}
+                    break;
         } // end switch
         current = (BSTNode<T>) q;
         return null;
