@@ -158,10 +158,14 @@ public class PhoneBook {
                         String location = input.next();
                         location += input.nextLine();
                         Event event1 = new Event(eventTitle, dateTime, location, contactName, false);
+                        boolean contactsAdded =event1.setContactsName(event1.contacts, contacts, contactName);
 
-                        if(event1.setContactsName(event1.contacts, contacts, contactName))
+                        if (!contactsAdded) {
+                        System.out.println("One or more contacts not found. Event scheduling failed.");
+                             break;
+                        }
+
                          events.add(event1);
-                        
                     } else {
                         System.out.print("Enter appointment title: ");
                         String eventTitle = input.next();
@@ -177,8 +181,14 @@ public class PhoneBook {
                         location += input.nextLine();
                        
                             Event event1 = new Event(eventTitle, dateTime, location, contactName, true);
+                        boolean contactsAdded =event1.setContactsName(event1.contacts, contacts, contactName);
 
-                            events.add(event1);
+                        if (!contactsAdded) {
+                        System.out.println("One or more contacts not found. Event scheduling failed.");
+                             break;
+                        }
+
+                         events.add(event1);
                     }
                     break;
                 case 5:
