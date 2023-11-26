@@ -81,19 +81,21 @@ public class PhoneBook {
                                 System.out.println(c.toString());
                             } else
                                 System.out.println("contact not found!");
+
                             break;
                         case 3:
                             System.out.println("Enter the contact's email address:");
-                            email = input.next();
+                             email = input.next();
+                            email += input.nextLine();
                             c = contacts.find(email, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
                             } else {
                                 System.out.println("No Contacts found!");
-                                break;
 
                             }
+                             break;
                         case 4:
                             System.out.println("Enter the contact's address: ");
                             address = input.next();
@@ -104,8 +106,9 @@ public class PhoneBook {
                                 System.out.println(c.toString());
                             } else {
                                 System.out.println("No Contacts found!");
-                                break;
+
                             }
+                            break;
                         case 5:
                             System.out.println("Enter the contact's birthday: ");
                             birthday = input.next();
@@ -113,12 +116,13 @@ public class PhoneBook {
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
-                            } else {
+                            } else 
                                 System.out.println("No Contacts found!");
-                                break;
-                            }
+                               
+                            break;
                         default:
                             System.out.println("Wrong number, please do it again");
+                            break;
                     }// end small switch
                     break;
                 case 3:

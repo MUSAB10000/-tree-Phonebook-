@@ -51,6 +51,8 @@ public class Event implements Comparable<Event> {
             String contactsName1) {
         // Split contact names by comma
         String[] contactNames = contactsName1.split(",");
+        for (int j = 0; j < contactNames.length; j++)
+        System.out.println(contactNames[j]);
 
         for (int i = 0; i < contactNames.length; i++) {
             Contact contact = Contacts1.find(contactNames[i], 1);

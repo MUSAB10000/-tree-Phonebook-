@@ -94,7 +94,7 @@ public class Contact_BST<T> {
             case 4:
             case 5:
                 if (find_Others((BSTNode<Contact>) current, name, num) == true) {
-                    return retrieve();
+                    return current.data;
                 }
 
                 break;
