@@ -70,7 +70,6 @@ public class Contact_BST<T> {
         return false;
     }
 
-   
     public T find(String name, int num) {
 
         if (empty())
@@ -81,7 +80,7 @@ public class Contact_BST<T> {
         switch (num) { // start switch
             case 1:
                 while (current != null) {// start while
-                    int x =name.compareTo(((Contact) current.data).getContactName());
+                    int x = name.compareTo(((Contact) current.data).getContactName());
                     if (x == 0)
                         return retrieve();
                     else if (x == -1)
@@ -94,10 +93,11 @@ public class Contact_BST<T> {
             case 3:
             case 4:
             case 5:
-                if (find_Others((BSTNode<Contact>) current, name, num) == true){
-                    return retrieve();}
+                if (find_Others((BSTNode<Contact>) current, name, num) == true) {
+                    return retrieve();
+                }
 
-                    break;
+                break;
         } // end switch
         current = (BSTNode<T>) q;
         return null;
@@ -129,9 +129,8 @@ public class Contact_BST<T> {
         return find_Others(current.left, name, num) || find_Others(current.right, name, num);
     }
 
-    public boolean removeKey(String name) {
+    public boolean removeKey(String name1) {
         // Search for name
-        String name1 = name;
         BSTNode<T> p = root;
         BSTNode<T> q = null; // Parent of p
         while (p != null) {
@@ -167,7 +166,7 @@ public class Contact_BST<T> {
                 if (q == null) { // No parent for p, root must change
                     root = p;
                 } else {
-                    if (name1.compareTo(p.key) < 0) {
+                    if (name1.compareTo(q.key) < 0) {
                         q.left = p;
                     } else {
                         q.right = p;

@@ -4,17 +4,15 @@ public class Event implements Comparable<Event> {
     private boolean isAppointment;
     public Contact_BST<Contact> contacts;
 
-    public Event(String eventTitle, String dateAndTime, String location,String contactsName , boolean isAppointment) {
+    public Event(String eventTitle, String dateAndTime, String location, String contactsName, boolean isAppointment) {
         this.EventTitle = eventTitle;
         this.DataAndTime = dateAndTime;
         this.Location = location;
         this.isAppointment = isAppointment;
         this.contactsName = contactsName;
-        contacts=new Contact_BST<>();
-       
-        
-    }
+        contacts = new Contact_BST<>();
 
+    }
 
     public String getEventTitle() {
         return EventTitle;
@@ -43,59 +41,28 @@ public class Event implements Comparable<Event> {
     public Contact_BST<Contact> Getcontacts() {
         return contacts;
     }
-    
+
     public String getcontactsName() {
         return contactsName;
     }
 
-    public boolean setContactsName(Contact_BST<Contact> contacts, Contact_BST<Contact> Contacts1, String contactsName1) {
-        String Firstname = "";
+    /* ahemd,ali,musab */
+    public boolean setContactsName(Contact_BST<Contact> contactsBST, Contact_BST<Contact> Contacts1,
+            String contactsName1) {
+        // Split contact names by comma
+        String[] contactNames = contactsName1.split(",");
 
-
-        if(isAppointment){
-            Contact con = Contacts1.find(Firstname, 1);
-               if (con != null) {
-                    contacts.addContact(con);
-                    return true;  
-                }   
+        for (int i = 0; i < contactNames.length; i++) {
+            Contact contact = Contacts1.find(contactNames[i], 1);
+            if (contact != null) {
+                contacts.addContact(contact);
+            } else {
+                // Contact not found, return false indicating failure to add event
                 return false;
-        }
-        String c = contactsName1;
-        int index = 0;
-		for (int i = 0; i < contactsName1.length(); i++) {
-			if ( i == 0) {
-				index = c.indexOf(',');
-				if (index == -1)
-	            	break;
-				Firstname +=c.substring(0, index);
-				c=c.substring(index+1,c.length());
-			}
-			else {
-				index = c.indexOf(',');
-				if (index == -1)
-	            	break;
-	            Firstname +=c.substring(0, index);
-	            c=c.substring(index+1,c.length());
-			}
-
-            Contact con = Contacts1.find(Firstname, 1);
-            if (con != null) {
-                contacts.addContact(con);
-                Firstname = "";
             }
-                else
-                return false;
-        } //end for
-                Contact con = Contacts1.find(c, 1);
-                if (con != null) {
-                contacts.addContact(con);
-                return true;
-                }
-                else
-                return false;
-            
+        }
+        return true; // All contacts added successfully
     }
-    
 
     public boolean isAppointment() {
         return isAppointment;
@@ -104,15 +71,14 @@ public class Event implements Comparable<Event> {
     public void setAppointment(boolean appointment) {
         isAppointment = appointment;
     }
-    
-    
 
-    public boolean removeContact(String name){
-      
-
-          return contacts.removeKey(name);
-
-     }
+    public void removenamecontact(String contactsName1) {
+        String[] contactNames = contactsName.split(contactsName1);
+        contactsName = "";
+        for (int i = 0; i < contactNames.length; i++) {
+            contactsName += contactNames[i];
+        }
+    }
 
     @Override
     public int compareTo(Event other) {
@@ -120,23 +86,19 @@ public class Event implements Comparable<Event> {
     }
 
     public String toString() {
-         if(isAppointment){
-             String str = "\nAppointment title: " + EventTitle +
-                "\nContact name:   " + contactsName +
-                "\nAppointment date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
-                "\nAppointment location: " + Location + "\n";
-        return str;
-         }
-             
+        if (isAppointment) {
+            String str = "\nAppointment title: " + EventTitle +
+                    "\nContact name:   " + contactsName +
+                    "\nAppointment date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
+                    "\nAppointment location: " + Location + "\n";
+            return str;
+        }
+
         String str = "\nEvent title: " + EventTitle +
                 "\nContact names:   " + contactsName +
                 "\nEvent date and time (MM/DD/YYYY HH:MM): " + DataAndTime +
                 "\nEvent location: " + Location + "\n";
         return str;
     }
-    
-   
-        
-       
-   
+
 }

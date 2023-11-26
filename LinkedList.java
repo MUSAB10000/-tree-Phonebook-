@@ -98,16 +98,13 @@ public class LinkedList<T> { // start LinkedList
             if (((Event) current.data).isAppointment())
                 if (((Event) current.data).getcontactsName().equalsIgnoreCase(ContactEvent))
                     if (previous != null) {
-                       ((Event) current.data).removeContact(ContactEvent);
                         previous.setNext(current.getNext());
                         current = current.getNext();
                     } else {
-                        ((Event) current.data).removeContact(ContactEvent);
                         head = current.getNext();
                         current = head;
                     }
                 else {
-                    
                     previous = current;
                     current = current.getNext();
 
@@ -119,7 +116,11 @@ public class LinkedList<T> { // start LinkedList
                     previous = current;
                     current = current.getNext();
                 } else {
-                    ((Event) current.data).removeContact(x.getContactName());
+
+                    ((Event) current.data).Getcontacts().removeKey(x.getContactName());
+                    ((Event) current.data).removenamecontact(x.getContactName());
+                    ;
+
                 }
             }
         }

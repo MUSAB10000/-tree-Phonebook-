@@ -124,15 +124,21 @@ public class PhoneBook {
                 case 3:
                     System.out.println("Enter contact name to delete it ");
                     String name_to_delete = input.next();
-
-                    Contact numberPhon = contacts.find(name_to_delete, 1);
-                    if (numberPhon != null) {
-                        events.RemoveEvent(numberPhon.getContactName());
+                    if (events.empty()) {
+                        contacts.removeKey(name_to_delete);
                         System.out.println("delete contact");
+
                         break;
                     } else {
-                        System.out.println("Contact name Not Found!");
-                        break;
+                        if (contacts.find(name_to_delete, 1) != null) {
+                            events.RemoveEvent(name_to_delete);
+                            contacts.removeKey(name_to_delete);
+                            System.out.println("delete contact");
+                            break;
+                        } else {
+                            System.out.println("Contact name Not Found!");
+                            break;
+                        }
                     }
                 case 4:// needs edit
                     System.out.print("Enter type:\r\n" + //
@@ -158,14 +164,14 @@ public class PhoneBook {
                         String location = input.next();
                         location += input.nextLine();
                         Event event1 = new Event(eventTitle, dateTime, location, contactName, false);
-                        boolean contactsAdded =event1.setContactsName(event1.contacts, contacts, contactName);
+                        boolean contactsAdded = event1.setContactsName(event1.contacts, contacts, contactName);
 
                         if (!contactsAdded) {
-                        System.out.println("One or more contacts not found. Event scheduling failed.");
-                             break;
+                            System.out.println("One or more contacts not found. Event scheduling failed.");
+                            break;
                         }
 
-                         events.add(event1);
+                        events.add(event1);
                     } else {
                         System.out.print("Enter appointment title: ");
                         String eventTitle = input.next();
@@ -179,16 +185,16 @@ public class PhoneBook {
                         System.out.print("Enter appointment location: ");
                         String location = input.next();
                         location += input.nextLine();
-                       
-                            Event event1 = new Event(eventTitle, dateTime, location, contactName, true);
-                        boolean contactsAdded =event1.setContactsName(event1.contacts, contacts, contactName);
+
+                        Event event1 = new Event(eventTitle, dateTime, location, contactName, true);
+                        boolean contactsAdded = event1.setContactsName(event1.contacts, contacts, contactName);
 
                         if (!contactsAdded) {
-                        System.out.println("One or more contacts not found. Event scheduling failed.");
-                             break;
+                            System.out.println("One or more contacts not found. Event scheduling failed.");
+                            break;
                         }
 
-                         events.add(event1);
+                        events.add(event1);
                     }
                     break;
                 case 5:
