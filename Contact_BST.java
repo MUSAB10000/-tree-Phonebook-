@@ -70,6 +70,7 @@ public class Contact_BST<T> {
         return false;
     }
 
+   
     public T find(String name, int num) {
 
         if (empty())
@@ -80,13 +81,13 @@ public class Contact_BST<T> {
         switch (num) { // start switch
             case 1:
                 while (current != null) {// start while
-                    int x = ((Contact) current.data).getContactName().compareTo(name);
+                    int x =name.compareTo(((Contact) current.data).getContactName());
                     if (x == 0)
                         return retrieve();
                     else if (x == -1)
-                        current = current.right;
-                    else
                         current = current.left;
+                    else
+                        current = current.right;
                 } // end while
                 break;
             case 2:
@@ -95,6 +96,7 @@ public class Contact_BST<T> {
             case 5:
                 if (find_Others((BSTNode<Contact>) current, name, num) == true){
                     return retrieve();}
+
                     break;
         } // end switch
         current = (BSTNode<T>) q;
