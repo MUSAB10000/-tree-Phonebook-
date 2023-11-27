@@ -52,7 +52,7 @@ public class Event implements Comparable<Event> {
         // Split contact names by comma
         String[] contactNames = contactsName1.split(",");
         for (int j = 0; j < contactNames.length; j++)
-        System.out.println(contactNames[j]);
+            System.out.println(contactNames[j]);
 
         for (int i = 0; i < contactNames.length; i++) {
             Contact contact = Contacts1.find(contactNames[i], 1);
@@ -80,7 +80,22 @@ public class Event implements Comparable<Event> {
         for (int i = 0; i < contactNames.length; i++) {
             contactsName += contactNames[i];
         }
-    }
+    }/*
+      * this code if you want to delete a ,
+      * public void removenamecontact(String contactsName1) {
+      * String[] contactNames = contactsName.split(",\\s*" + contactsName1 + "|\\s*"
+      * + contactsName1 + ",\\s*");
+      * 
+      * StringBuilder updatedContactList = new StringBuilder();
+      * 
+      * for (String name : contactNames) {
+      * updatedContactList.append(name.trim()); // Trim to remove leading/trailing
+      * spaces
+      * }
+      * 
+      * contactsName = updatedContactList.toString();
+      * }
+      */
 
     @Override
     public int compareTo(Event other) {

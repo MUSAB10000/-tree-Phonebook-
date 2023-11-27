@@ -85,7 +85,7 @@ public class PhoneBook {
                             break;
                         case 3:
                             System.out.println("Enter the contact's email address:");
-                             email = input.next();
+                            email = input.next();
                             email += input.nextLine();
                             c = contacts.find(email, choice2);
                             if (c != null) {
@@ -95,7 +95,7 @@ public class PhoneBook {
                                 System.out.println("No Contacts found!");
 
                             }
-                             break;
+                            break;
                         case 4:
                             System.out.println("Enter the contact's address: ");
                             address = input.next();
@@ -116,9 +116,9 @@ public class PhoneBook {
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
-                            } else 
+                            } else
                                 System.out.println("No Contacts found!");
-                               
+
                             break;
                         default:
                             System.out.println("Wrong number, please do it again");
@@ -128,6 +128,7 @@ public class PhoneBook {
                 case 3:
                     System.out.println("Enter contact name to delete it ");
                     String name_to_delete = input.next();
+                    name_to_delete += input.nextLine();
                     if (events.empty()) {
                         contacts.removeKey(name_to_delete);
                         System.out.println("delete contact");

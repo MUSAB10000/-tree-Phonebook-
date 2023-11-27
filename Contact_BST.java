@@ -83,7 +83,7 @@ public class Contact_BST<T> {
                     int x = name.compareTo(((Contact) current.data).getContactName());
                     if (x == 0)
                         return retrieve();
-                    else if (x == -1)
+                    else if (x < 0)
                         current = current.left;
                     else
                         current = current.right;
