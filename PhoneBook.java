@@ -176,7 +176,7 @@ public class PhoneBook {
                             break;
                         }
 
-                        events.add(event1);
+                        events.addEvent(event1);
                     } else {
                         System.out.print("Enter appointment title: ");
                         String eventTitle = input.next();
@@ -199,7 +199,7 @@ public class PhoneBook {
                             break;
                         }
 
-                        events.add(event1);
+                        events.addEvent(event1);
                     }
                     break;
                 case 5:
@@ -218,7 +218,7 @@ public class PhoneBook {
                             System.out.println("Enter the event title:");
                             String eventTitle = input.next();
                             eventTitle += input.nextLine();
-                            events.SearchEvent(events.getHead(), eventTitle, 2);
+                            events.SearchEvent(events.getHead(), eventTitle, choice2);
                             break;
                         default:
                             System.out.println("Wrong number, please do it again");
@@ -295,23 +295,6 @@ public class PhoneBook {
             events.findnext();
         }
         System.out.println(events.retrieve().toString());
-
-    }
-
-    private void PrintEventTitle(String title) {// Print the Event that has the same Title
-        if (events.empty())
-            System.out.println("No Contacts found!");
-
-        events.findfirst();
-        while (events.last() == false) {
-            if (events.retrieve().getEventTitle().equalsIgnoreCase(title)) {
-                System.out.println(events.retrieve().toString());
-            }
-            events.findnext();
-        }
-        if (events.retrieve().getEventTitle().equalsIgnoreCase(title)) {
-            System.out.println(events.retrieve().toString());
-        }
 
     }
 

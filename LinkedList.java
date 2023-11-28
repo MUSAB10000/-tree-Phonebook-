@@ -26,15 +26,7 @@ public class LinkedList<T> { // start LinkedList
         return head;
     }
 
-    public void add(T val) {
-        if (val instanceof Event) {
-            System.out.println(addEvent((Event) val));
-            return;
-        }
-        System.out.println("Can't add this type.");
-    }
-
-    private String addEvent(Event e) {
+    public String addEvent(Event e) {
         if (head == null) {
             head = new Node<T>((T) e);
             return "Event added successfully!";
@@ -76,15 +68,34 @@ public class LinkedList<T> { // start LinkedList
         // DateAndTime and the same name, Assuming the name of
         // contact is unique.
         current = head;
-        while (current != null) {
-            if (current.getData() instanceof Event) {
+        if (event.isAppointment()) {
+            while (current != null) {
                 Event existingEvent = (Event) current.getData();
-                if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime()))
+                if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())
+                        && existingEvent.getcontactsName().equalsIgnoreCase(event.getcontactsName()))
                     return true;
+
+                current = current.getNext();
             }
-            current = current.getNext();
+            return false;
+        } else {
+            while (current != null) {
+                Event existingEvent = (Event) current.getData();
+                if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())) {
+                    BSTNode<Contact> existingContactsNode = existingEvent.Getcontacts().root;
+                    BSTNode<Contact> newEventContactsNode = event.Getcontacts().root;
+
+                    boolean contactConflict = event.contacts.compareContactBST(existingContactsNode,
+                            newEventContactsNode);
+
+                    if (contactConflict) {
+                        return true; // Conflict found
+                    }
+                }
+                current = current.getNext();
+            }
+            return false; // No conflict
         }
-        return false;
     }
 
     public void RemoveEvent(String ContactEvent) {
@@ -93,10 +104,11 @@ public class LinkedList<T> { // start LinkedList
         }
         Node<T> current = head;
         Node<T> previous = null;
+        boolean containsContact = false; // Flag to track if any non-empty contact name found
 
         while (current != null) {
-            if (((Event) current.data).isAppointment())
-                if (((Event) current.data).getcontactsName().equalsIgnoreCase(ContactEvent))
+            if (((Event) current.data).isAppointment()) {
+                if (((Event) current.data).getcontactsName().equalsIgnoreCase(ContactEvent)) {
                     if (previous != null) {
                         previous.setNext(current.getNext());
                         current = current.getNext();
@@ -104,23 +116,52 @@ public class LinkedList<T> { // start LinkedList
                         head = current.getNext();
                         current = head;
                     }
-                else {
+                } else {
                     previous = current;
                     current = current.getNext();
-
                 }
-
-            else {
+            } else {
                 Contact x = (((Event) current.data).contacts.find(ContactEvent, 1));
                 if (x == null) {
                     previous = current;
                     current = current.getNext();
                 } else {
-
                     ((Event) current.data).Getcontacts().removeKey(x.getContactName());
                     ((Event) current.data).removenamecontact(x.getContactName());
-                    ;
+                    String contactNames = ((Event) current.data).getcontactsName();
 
+                    if (contactNames.isEmpty() || contactNames.equals(",")
+                            || containsOnlySpacesOrCommas(contactNames)) {
+                        // Delete the event node if the contact names contain only spaces or commas
+                        if (previous != null) {
+                            previous.setNext(current.getNext());
+                            current = current.getNext();
+                        } else {
+                            head = current.getNext();
+                            current = head;
+                        }
+                    } else {
+                        containsContact = true;
+                        previous = current;
+                        current = current.getNext();
+                    }
+                }
+            }
+        }
+
+        if (!containsContact) {
+            // Delete the last node if no non-empty contact name was found in the entire
+            // list
+            // Assuming head is a reference to the start of the linked list
+            if (head != null) {
+                if (head.getNext() == null) {
+                    head = null;
+                } else {
+                    Node<T> temp = head;
+                    while (temp.getNext().getNext() != null) {
+                        temp = temp.getNext();
+                    }
+                    temp.setNext(null);
                 }
             }
         }
@@ -135,7 +176,7 @@ public class LinkedList<T> { // start LinkedList
             case 1:
                 while (current != null) {// start while
                     if (((Event) current.getData()).Getcontacts().find(name, 1) != null)
-                        current.data.toString();
+                        System.out.println(current.data.toString());
 
                     current = current.getNext();
                 } // end while
@@ -143,11 +184,22 @@ public class LinkedList<T> { // start LinkedList
             case 2:
                 while (current != null) {// start while
                     if (current.data instanceof Event && ((Event) current.data).getEventTitle().equals(name))
-                        current.data.toString();
+                        System.out.println(current.data.toString());
+
                     current = current.getNext();
                 } // end while
                 break;
         } // end switch
     }
 
+    public boolean containsOnlySpacesOrCommas(String str) {
+        boolean allSpacesOrCommas = true;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) != ' ' && str.charAt(i) != ',') {
+                allSpacesOrCommas = false;
+                break;
+            }
+        }
+        return allSpacesOrCommas;
+    }
 }
