@@ -1,5 +1,7 @@
+import java.nio.file.FileAlreadyExistsException;
+
 public class Contact_BST<T> {
-    BSTNode<T> root, current;
+    private BSTNode<T> root, current;
 
     public Contact_BST() {
         root = current = null;
@@ -14,26 +16,29 @@ public class Contact_BST<T> {
     }
 
     public void update(T val) {
-        if (removeKey(((Contact) val).getContactName()))
+        if (removeContact(((Contact) val).getContactName()))
             addContact((Contact) val);
 
         return;
     }
 
-    public void addContact(Contact contact) {
+    public BSTNode getroot() {
+        return root;
+    }
+
+    public Boolean addContact(Contact contact) {
         // If the tree is empty, set the root node as the new contact
         if (root == null) {
             root = new BSTNode<T>(contact.getContactName(), (T) contact);
-            System.out.println("Contact added successfully");
+            return true;
         } else {
             // Check if contact already exists
             if (ContactExist(contact)) {
-                System.out.println("Contact already exists");
-                return;
+                return false;
             }
             // Insert the contact into the BST
             insert(root, contact);
-            System.out.println("Contact added successfully");
+            return true;
         }
     }
 
@@ -88,48 +93,75 @@ public class Contact_BST<T> {
                     else
                         current = current.right;
                 } // end while
-                break;
+                return null;
             case 2:
-            case 3:
-            case 4:
-            case 5:
-                if (find_Others((BSTNode<Contact>) current, name, num) == true) {
-                    return current.data;
+                while (current != null) {// start while
+                    if (name.equalsIgnoreCase(((Contact) current.data).getPhoneNumber())) {
+                        return retrieve();
+                    }
+                    if (current.left != null) {
+                        current = current.left;
+                    } else if (current.right != null) {
+                        current = current.right;
+                    } else
+                        return null;
                 }
-
-                break;
         } // end switch
         current = (BSTNode<T>) q;
         return null;
     }// end Search
 
-    private boolean find_Others(BSTNode<Contact> current, String name, int num) {
-        if (current == null) {
-            return false;
-        }
-        switch (num) {
-            case 2:
-                if (name.equals(current.data.getPhoneNumber()))
-                    return true;
-                break;
-            case 3:
-                if (name.equals(current.data.getEmail()))
-                    return true;
-                break;
-            case 4:
-                if (name.equals(current.data.getAddress()))
-                    return true;
-                break;
-            case 5:
-                if (name.equals(current.data.getBirthday()))
-                    return true;
-                break;
-        }
+    public T find_Others(String name, int num) {
+        if (empty()) {
+            return null;
 
-        return find_Others(current.left, name, num) || find_Others(current.right, name, num);
+        }
+        current = root;
+        BSTNode<T> q = (BSTNode<T>) current;
+        switch (num) {
+            case 3:
+                while (current != null) {
+                    if (name.equalsIgnoreCase(((Contact) current.data).getEmail())) {
+                        return retrieve();
+                    }
+                    if (current.left != null) {
+                        current = current.left;
+                    } else if (current.right != null) {
+                        current = current.right;
+                    } else
+                        return null;
+                }
+            case 4:
+                while (current != null) {
+                    if (name.equalsIgnoreCase(((Contact) current.data).getAddress())) {
+                        return retrieve();
+                    }
+                    if (current.left != null) {
+                        current = current.left;
+                    } else if (current.right != null) {
+                        current = current.right;
+                    } else
+                        return null;
+                }
+            case 5:
+                while (current != null) {
+                    if (name.equalsIgnoreCase(((Contact) current.data).getBirthday())) {
+                        return retrieve();
+                    }
+                    if (current.left != null) {
+                        current = current.left;
+                    } else if (current.right != null) {
+                        current = current.right;
+                    } else
+                        return null;
+                }
+
+        }
+        return null;
+
     }
 
-    public boolean removeKey(String name1) {
+    public boolean removeContact(String name1) {
         // Search for name
         BSTNode<T> p = root;
         BSTNode<T> q = null; // Parent of p

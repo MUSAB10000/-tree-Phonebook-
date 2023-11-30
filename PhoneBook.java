@@ -47,8 +47,10 @@ public class PhoneBook {
                     String notes = input.next();
                     notes += input.nextLine();
                     Contact x = new Contact(name, phoneNumber, email, address, birthday, notes);
-
-                    contacts.addContact(x);
+                    if (contacts.addContact(x)) {
+                        System.out.println("Contact added successfully");
+                    } else
+                        System.out.println("Contact already exists");
                     break;
 
                 case 2:
@@ -87,37 +89,35 @@ public class PhoneBook {
                             System.out.println("Enter the contact's email address:");
                             email = input.next();
                             email += input.nextLine();
-                            c = contacts.find(email, choice2);
+                            c = contacts.find_Others(email, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
-                            } else {
-                                System.out.println("No Contacts found!");
+                            } else
+                                System.out.println("contact not found!");
 
-                            }
                             break;
                         case 4:
                             System.out.println("Enter the contact's address: ");
                             address = input.next();
                             address += input.nextLine();
-                            c = contacts.find(address, choice2);
-                            if (c != null) {
-                                System.out.println("contact found!");
-                                System.out.println(c.toString());
-                            } else {
-                                System.out.println("No Contacts found!");
-
-                            }
-                            break;
-                        case 5:
-                            System.out.println("Enter the contact's birthday: ");
-                            birthday = input.next();
-                            c = contacts.find(birthday, choice2);
+                            c = contacts.find_Others(address, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
                             } else
-                                System.out.println("No Contacts found!");
+                                System.out.println("contact not found!");
+
+                            break;
+                        case 5:
+                            System.out.println("Enter the contact's birthday: ");
+                            birthday = input.next();
+                            c = contacts.find_Others(birthday, choice2);
+                            if (c != null) {
+                                System.out.println("contact found!");
+                                System.out.println(c.toString());
+                            } else
+                                System.out.println("contact not found!");
 
                             break;
                         default:
@@ -130,14 +130,14 @@ public class PhoneBook {
                     String name_to_delete = input.next();
                     name_to_delete += input.nextLine();
                     if (events.empty()) {
-                        contacts.removeKey(name_to_delete);
+                        contacts.removeContact(name_to_delete);
                         System.out.println("delete contact");
 
                         break;
                     } else {
                         if (contacts.find(name_to_delete, 1) != null) {
                             events.RemoveEvent(name_to_delete);
-                            contacts.removeKey(name_to_delete);
+                            contacts.removeContact(name_to_delete);
                             System.out.println("delete contact");
                             break;
                         } else {
@@ -176,7 +176,8 @@ public class PhoneBook {
                             break;
                         }
 
-                        events.addEvent(event1);
+                        System.out.println(events.addEvent(event1));
+
                     } else {
                         System.out.print("Enter appointment title: ");
                         String eventTitle = input.next();
@@ -199,7 +200,7 @@ public class PhoneBook {
                             break;
                         }
 
-                        events.addEvent(event1);
+                        System.out.println(events.addEvent(event1));
                     }
                     break;
                 case 5:
@@ -262,7 +263,7 @@ public class PhoneBook {
             return;
         }
 
-        printContactsByFirstName(contacts.root, name);
+        printContactsByFirstName(contacts.getroot(), name);
     }
 
     private void printContactsByFirstName(BSTNode<Contact> node, String name) {

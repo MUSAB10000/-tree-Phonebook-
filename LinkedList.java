@@ -34,7 +34,7 @@ public class LinkedList<T> { // start LinkedList
         if (dateTimeConflictEvent(head, e)) // new edit
             return "Event Not Adeed! DateAndTime Conflict";
 
-        if (head.getData() instanceof Event && e.compareTo(((Event) head.getData())) < 0) {
+        if (e.getcontactsName().compareToIgnoreCase(((Event) head.getData()).getcontactsName()) < 0) {
             Node<T> temp = head;
             head = new Node<T>((T) e);
             head.setNext(temp);
@@ -44,7 +44,7 @@ public class LinkedList<T> { // start LinkedList
         current = head;
         Node<T> prev = null;
         while (current != null) {
-            if (current.getData() instanceof Event && e.compareTo((Event) current.getData()) < 0) {
+            if (e.getcontactsName().compareToIgnoreCase(((Event) head.getData()).getcontactsName()) < 0) {
                 newNode.setNext(current);
                 prev.setNext(newNode);
                 current = newNode;
@@ -68,34 +68,22 @@ public class LinkedList<T> { // start LinkedList
         // DateAndTime and the same name, Assuming the name of
         // contact is unique.
         current = head;
-        if (event.isAppointment()) {
-            while (current != null) {
-                Event existingEvent = (Event) current.getData();
-                if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())
-                        && existingEvent.getcontactsName().equalsIgnoreCase(event.getcontactsName()))
-                    return true;
+        while (current != null) {
+            Event existingEvent = (Event) current.getData();
+            if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())) {
+                BSTNode<Contact> existingContactsNode = existingEvent.Getcontacts().getroot();
+                BSTNode<Contact> newEventContactsNode = event.Getcontacts().getroot();
 
-                current = current.getNext();
-            }
-            return false;
-        } else {
-            while (current != null) {
-                Event existingEvent = (Event) current.getData();
-                if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())) {
-                    BSTNode<Contact> existingContactsNode = existingEvent.Getcontacts().root;
-                    BSTNode<Contact> newEventContactsNode = event.Getcontacts().root;
+                boolean contactConflict = event.contacts.compareContactBST(existingContactsNode,
+                        newEventContactsNode);
 
-                    boolean contactConflict = event.contacts.compareContactBST(existingContactsNode,
-                            newEventContactsNode);
-
-                    if (contactConflict) {
-                        return true; // Conflict found
-                    }
+                if (contactConflict) {
+                    return true; // Conflict found
                 }
-                current = current.getNext();
             }
-            return false; // No conflict
+            current = current.getNext();
         }
+        return false; // No conflict
     }
 
     public void RemoveEvent(String ContactEvent) {
@@ -107,7 +95,7 @@ public class LinkedList<T> { // start LinkedList
         boolean containsContact = false; // Flag to track if any non-empty contact name found
 
         while (current != null) {
-            if (((Event) current.data).isAppointment()) {
+            if (((Event) current.data).isAppointment()) {// the delete method for Appointment
                 if (((Event) current.data).getcontactsName().equalsIgnoreCase(ContactEvent)) {
                     if (previous != null) {
                         previous.setNext(current.getNext());
@@ -120,13 +108,13 @@ public class LinkedList<T> { // start LinkedList
                     previous = current;
                     current = current.getNext();
                 }
-            } else {
+            } else {// delete method for Event
                 Contact x = (((Event) current.data).contacts.find(ContactEvent, 1));
                 if (x == null) {
                     previous = current;
                     current = current.getNext();
                 } else {
-                    ((Event) current.data).Getcontacts().removeKey(x.getContactName());
+                    ((Event) current.data).Getcontacts().removeContact(x.getContactName());
                     ((Event) current.data).removenamecontact(x.getContactName());
                     String contactNames = ((Event) current.data).getcontactsName();
 

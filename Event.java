@@ -52,17 +52,15 @@ public class Event implements Comparable<Event> {
         // Split contact names by comma
         String[] contactNames = contactsName1.split(",");
         for (int j = 0; j < contactNames.length; j++)
-            System.out.println(contactNames[j]);
-
-        for (int i = 0; i < contactNames.length; i++) {
-            Contact contact = Contacts1.find(contactNames[i], 1);
-            if (contact != null) {
-                contacts.addContact(contact);
-            } else {
-                // Contact not found, return false indicating failure to add event
-                return false;
+            for (int i = 0; i < contactNames.length; i++) {
+                Contact contact = Contacts1.find(contactNames[i], 1);
+                if (contact != null) {
+                    contacts.addContact(contact);
+                } else {
+                    // Contact not found, return false indicating failure to add event
+                    return false;
+                }
             }
-        }
         return true; // All contacts added successfully
     }
 
