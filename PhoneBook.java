@@ -67,7 +67,7 @@ public class PhoneBook {
                             System.out.println("Enter the contact's name:");
                             name = input.next();
                             name += input.nextLine();
-                            Contact c = contacts.find(name, choice2);
+                            Contact c = contacts.find_name(name);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
@@ -77,7 +77,7 @@ public class PhoneBook {
                         case 2:
                             System.out.println("Enter the contact's phone number:");
                             phoneNumber = input.next();
-                            c = contacts.find(phoneNumber, choice2);
+                            c = contacts.find_Others(phoneNumber, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
@@ -135,7 +135,7 @@ public class PhoneBook {
 
                         break;
                     } else {
-                        if (contacts.find(name_to_delete, 1) != null) {
+                        if (contacts.find_name(name_to_delete) != null) {
                             events.RemoveEvent(name_to_delete);
                             contacts.removeContact(name_to_delete);
                             System.out.println("delete contact");

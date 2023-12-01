@@ -1,4 +1,3 @@
-import java.nio.file.FileAlreadyExistsException;
 
 public class Contact_BST<T> {
     private BSTNode<T> root, current;
@@ -26,18 +25,18 @@ public class Contact_BST<T> {
         return root;
     }
 
-    public Boolean addContact(Contact contact) {
+    public Boolean addContact(Contact contact) {// average case O(log n) worst case O(n)
         // If the tree is empty, set the root node as the new contact
-        if (root == null) {
+        if (root == null) {// O(1)
             root = new BSTNode<T>(contact.getContactName(), (T) contact);
             return true;
         } else {
             // Check if contact already exists
-            if (ContactExist(contact)) {
+            if (ContactExist(contact)) {// O(log n)
                 return false;
             }
             // Insert the contact into the BST
-            insert(root, contact);
+            insert(root, contact);// average case O(log n) worst case O(n)
             return true;
         }
     }
@@ -69,33 +68,39 @@ public class Contact_BST<T> {
     private boolean ContactExist(Contact contact) {
         // Check if a contact with the same name or phone number already exists in the
         // BST
-        if (find(contact.getContactName(), 1) != null || find(contact.getPhoneNumber(), 2) != null)
+        if (find_name(contact.getContactName()) != null || find_Others(contact.getPhoneNumber(), 2) != null)
             return true;
 
         return false;
     }
 
-    public T find(String name, int num) {
-
+    public T find_name(String name) {// average case O(log n) worst case O(n)
         if (empty())
             return null;
         current = root;
         BSTNode<T> q = (BSTNode<T>) current;
+        while (current != null) {
 
-        switch (num) { // start switch
-            case 1:
-                while (current != null) {// start while
-                    int x = name.compareTo(((Contact) current.data).getContactName());
-                    if (x == 0)
-                        return retrieve();
-                    else if (x < 0)
-                        current = current.left;
-                    else
-                        current = current.right;
-                } // end while
-                return null;
+            if (name.compareTo(((Contact) current.data).getContactName()) == 0)
+                return retrieve();
+            else if (name.compareTo(((Contact) current.data).getContactName()) < 0)
+                current = current.left;
+            else
+                current = current.right;
+        }
+        return null;
+
+    }// end Search
+
+    public T find_Others(String name, int num) {// average case O(log n) worst case O(n)
+        if (empty()) {
+            return null;
+        }
+        current = root;
+        BSTNode<T> q = (BSTNode<T>) current;
+        switch (num) {
             case 2:
-                while (current != null) {// start while
+                while (current != null) {
                     if (name.equalsIgnoreCase(((Contact) current.data).getPhoneNumber())) {
                         return retrieve();
                     }
@@ -106,19 +111,7 @@ public class Contact_BST<T> {
                     } else
                         return null;
                 }
-        } // end switch
-        current = (BSTNode<T>) q;
-        return null;
-    }// end Search
 
-    public T find_Others(String name, int num) {
-        if (empty()) {
-            return null;
-
-        }
-        current = root;
-        BSTNode<T> q = (BSTNode<T>) current;
-        switch (num) {
             case 3:
                 while (current != null) {
                     if (name.equalsIgnoreCase(((Contact) current.data).getEmail())) {
@@ -161,7 +154,7 @@ public class Contact_BST<T> {
 
     }
 
-    public boolean removeContact(String name1) {
+    public boolean removeContact(String name1) {// average case O(log n) worst case O(n)
         // Search for name
         BSTNode<T> p = root;
         BSTNode<T> q = null; // Parent of p
@@ -211,7 +204,8 @@ public class Contact_BST<T> {
         return false; // Not found
     }
 
-    public boolean compareContactBST(BSTNode<Contact> node1, BSTNode<Contact> node2) {
+    public boolean compareContactBST(BSTNode<Contact> node1, BSTNode<Contact> node2) {// this method we use in conflicts
+                                                                                      // the date
         if (node1 == null && node2 == null) {
             return true; // Both nodes are empty, no conflicts
         } else if (node1 == null || node2 == null) {

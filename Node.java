@@ -1,6 +1,6 @@
 public class Node<w> {
-    public w data;
-    public Node<w> next;
+    w data;
+    private Node<w> next;
 
     public w getData() {
         return data;

@@ -48,12 +48,12 @@ public class Event implements Comparable<Event> {
 
     /* ahemd,ali,musab */
     public boolean setContactsName(Contact_BST<Contact> contactsBST, Contact_BST<Contact> Contacts1,
-            String contactsName1) {
+            String contactsName1) {// O(n^2)
         // Split contact names by comma
         String[] contactNames = contactsName1.split(",");
         for (int j = 0; j < contactNames.length; j++)
             for (int i = 0; i < contactNames.length; i++) {
-                Contact contact = Contacts1.find(contactNames[i], 1);
+                Contact contact = Contacts1.find_name(contactNames[i]);
                 if (contact != null) {
                     contacts.addContact(contact);
                 } else {
@@ -72,7 +72,7 @@ public class Event implements Comparable<Event> {
         isAppointment = appointment;
     }
 
-    public void removenamecontact(String contactsName1) {
+    public void removenamecontact(String contactsName1) {// O(n)
         String[] contactNames = contactsName.split(contactsName1);
         contactsName = "";
         for (int i = 0; i < contactNames.length; i++) {

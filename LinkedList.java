@@ -26,15 +26,15 @@ public class LinkedList<T> { // start LinkedList
         return head;
     }
 
-    public String addEvent(Event e) {
-        if (head == null) {
+    public String addEvent(Event e) {// O(n)
+        if (head == null) {// O(n)
             head = new Node<T>((T) e);
             return "Event added successfully!";
         }
-        if (dateTimeConflictEvent(head, e)) // new edit
+        if (dateTimeConflictEvent(head, e))// O(log n) or O(n)
             return "Event Not Adeed! DateAndTime Conflict";
 
-        if (e.getcontactsName().compareToIgnoreCase(((Event) head.getData()).getcontactsName()) < 0) {
+        if (e.getEventTitle().compareToIgnoreCase(((Event) head.getData()).getEventTitle()) < 0) {
             Node<T> temp = head;
             head = new Node<T>((T) e);
             head.setNext(temp);
@@ -44,7 +44,7 @@ public class LinkedList<T> { // start LinkedList
         current = head;
         Node<T> prev = null;
         while (current != null) {
-            if (e.getcontactsName().compareToIgnoreCase(((Event) head.getData()).getcontactsName()) < 0) {
+            if (e.getEventTitle().compareToIgnoreCase(((Event) head.getData()).getEventTitle()) < 0) {
                 newNode.setNext(current);
                 prev.setNext(newNode);
                 current = newNode;
@@ -70,7 +70,10 @@ public class LinkedList<T> { // start LinkedList
         current = head;
         while (current != null) {
             Event existingEvent = (Event) current.getData();
-            if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())) {
+            if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())) {// if the event has the same
+                                                                                          // time then we should to
+                                                                                          // check the name in BST of
+                                                                                          // contact that inside event
                 BSTNode<Contact> existingContactsNode = existingEvent.Getcontacts().getroot();
                 BSTNode<Contact> newEventContactsNode = event.Getcontacts().getroot();
 
@@ -94,7 +97,7 @@ public class LinkedList<T> { // start LinkedList
         Node<T> previous = null;
         boolean containsContact = false; // Flag to track if any non-empty contact name found
 
-        while (current != null) {
+        while (current != null) {// O(nm)
             if (((Event) current.data).isAppointment()) {// the delete method for Appointment
                 if (((Event) current.data).getcontactsName().equalsIgnoreCase(ContactEvent)) {
                     if (previous != null) {
@@ -109,7 +112,7 @@ public class LinkedList<T> { // start LinkedList
                     current = current.getNext();
                 }
             } else {// delete method for Event
-                Contact x = (((Event) current.data).contacts.find(ContactEvent, 1));
+                Contact x = (((Event) current.data).contacts.find_name(ContactEvent));
                 if (x == null) {
                     previous = current;
                     current = current.getNext();
@@ -155,7 +158,7 @@ public class LinkedList<T> { // start LinkedList
         }
     }
 
-    public void SearchEvent(Node<T> head, String name, int num) { // start PrintEvent
+    public void SearchEvent(Node<T> head, String name, int num) { // O(n)
         if (head == null)
             return;
 
@@ -163,7 +166,7 @@ public class LinkedList<T> { // start LinkedList
         switch (num) { // start switch
             case 1:
                 while (current != null) {// start while
-                    if (((Event) current.getData()).Getcontacts().find(name, 1) != null)
+                    if (((Event) current.getData()).Getcontacts().find_name(name) != null)
                         System.out.println(current.data.toString());
 
                     current = current.getNext();
