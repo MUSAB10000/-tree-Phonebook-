@@ -27,14 +27,14 @@ public class LinkedList<T> { // start LinkedList
     }
 
     public String addEvent(Event e) {// O(n)
-        if (head == null) {// O(n)
+        if (head == null) {// O(1)
             head = new Node<T>((T) e);
             return "Event added successfully!";
         }
-        if (dateTimeConflictEvent(head, e))// O(log n) or O(n)
+        if (dateTimeConflictEvent(head, e))// O(n)
             return "Event Not Adeed! DateAndTime Conflict";
 
-        if (e.getEventTitle().compareToIgnoreCase(((Event) head.getData()).getEventTitle()) < 0) {
+        if (e.getEventTitle().compareToIgnoreCase(((Event) head.getData()).getEventTitle()) < 0) {// O(1)
             Node<T> temp = head;
             head = new Node<T>((T) e);
             head.setNext(temp);
@@ -43,7 +43,7 @@ public class LinkedList<T> { // start LinkedList
         Node<T> newNode = new Node<T>((T) e);
         current = head;
         Node<T> prev = null;
-        while (current != null) {
+        while (current != null) {// O(n)
             if (e.getEventTitle().compareToIgnoreCase(((Event) head.getData()).getEventTitle()) < 0) {
                 newNode.setNext(current);
                 prev.setNext(newNode);
@@ -70,26 +70,16 @@ public class LinkedList<T> { // start LinkedList
         current = head;
         while (current != null) {
             Event existingEvent = (Event) current.getData();
-            if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())) {// if the event has the same
-                                                                                          // time then we should to
-                                                                                          // check the name in BST of
-                                                                                          // contact that inside event
-                BSTNode<Contact> existingContactsNode = existingEvent.Getcontacts().getroot();
-                BSTNode<Contact> newEventContactsNode = event.Getcontacts().getroot();
-
-                boolean contactConflict = event.contacts.compareContactBST(existingContactsNode,
-                        newEventContactsNode);
-
-                if (contactConflict) {
-                    return true; // Conflict found
-                }
+            if (existingEvent.getDataAndTime().equalsIgnoreCase(event.getDataAndTime())) {
+                return true; // Conflict found
             }
             current = current.getNext();
         }
+
         return false; // No conflict
     }
 
-    public void RemoveEvent(String ContactEvent) {
+    public void RemoveEvent(String ContactEvent) {// O(nm)
         if (head == null) {
             return;
         }
@@ -97,7 +87,7 @@ public class LinkedList<T> { // start LinkedList
         Node<T> previous = null;
         boolean containsContact = false; // Flag to track if any non-empty contact name found
 
-        while (current != null) {// O(nm)
+        while (current != null) {
             if (((Event) current.data).isAppointment()) {// the delete method for Appointment
                 if (((Event) current.data).getcontactsName().equalsIgnoreCase(ContactEvent)) {
                     if (previous != null) {

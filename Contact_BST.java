@@ -203,30 +203,4 @@ public class Contact_BST<T> {
         }
         return false; // Not found
     }
-
-    public boolean compareContactBST(BSTNode<Contact> node1, BSTNode<Contact> node2) {// this method we use in conflicts
-                                                                                      // the date
-        if (node1 == null && node2 == null) {
-            return true; // Both nodes are empty, no conflicts
-        } else if (node1 == null || node2 == null) {
-            return false; // One of the nodes is empty, conflicts exist
-        } else {
-            // Compare contacts in BST nodes
-            Contact contact1 = node1.data;
-            Contact contact2 = node2.data;
-
-            int comparisonResult = contact1.getContactName().compareToIgnoreCase(contact2.getContactName());
-
-            if (comparisonResult == 0) {
-                // Contacts are the same, conflict found
-                return true;
-            } else if (comparisonResult < 0) {
-                // Recursively check left subtrees
-                return compareContactBST(node1.right, node2) || compareContactBST(node1, node2.left);
-            } else {
-                // Recursively check right subtrees
-                return compareContactBST(node1.left, node2) || compareContactBST(node1, node2.right);
-            }
-        }
-    }
 }

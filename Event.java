@@ -46,21 +46,19 @@ public class Event implements Comparable<Event> {
         return contactsName;
     }
 
-    /* ahemd,ali,musab */
     public boolean setContactsName(Contact_BST<Contact> contactsBST, Contact_BST<Contact> Contacts1,
-            String contactsName1) {// O(n^2)
+            String contactsName1) {// O(n)
         // Split contact names by comma
         String[] contactNames = contactsName1.split(",");
-        for (int j = 0; j < contactNames.length; j++)
-            for (int i = 0; i < contactNames.length; i++) {
-                Contact contact = Contacts1.find_name(contactNames[i]);
-                if (contact != null) {
-                    contacts.addContact(contact);
-                } else {
-                    // Contact not found, return false indicating failure to add event
-                    return false;
-                }
+        for (int i = 0; i < contactNames.length; i++) {
+            Contact contact = Contacts1.find_name(contactNames[i]);
+            if (contact != null) {
+                contacts.addContact(contact);
+            } else {
+                // Contact not found, return false indicating failure to add event
+                return false;
             }
+        }
         return true; // All contacts added successfully
     }
 
