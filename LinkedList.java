@@ -83,7 +83,6 @@ public class LinkedList<T> { // start LinkedList
         }
         Node<T> current = head;
         Node<T> previous = null;
-        boolean containsContact = false; // Flag to track if any non-empty contact name found
 
         while (current != null) {
             if (((Event) current.data).isAppointment()) {// the delete method for Appointment
@@ -120,7 +119,7 @@ public class LinkedList<T> { // start LinkedList
                             current = head;
                         }
                     } else {
-                        containsContact = true;
+                       
                         previous = current;
                         current = current.getNext();
                     }
