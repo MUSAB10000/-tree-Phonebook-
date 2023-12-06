@@ -119,41 +119,57 @@ public class Contact_BST<T> {
                 
 
             case 3:
-                while (current != null) {
-                    if (name.equalsIgnoreCase(((Contact) current.data).getEmail())) {
+                    val = null;
+                    if (name.equalsIgnoreCase(((Contact) node.data).getEmail())) {
+                        current = node;
                         return retrieve();
                     }
-                    if (current.left != null) {
-                        current = current.left;
-                    } else if (current.right != null) {
-                        current = current.right;
-                    } else
+                    if (node.left != null) {
+                        val = find_Others(node.left,name, num);
+                        if (val != null)
+                        return val;
+                    } if (node.right != null) {
+                        val = find_Others(node.right,name, num);
+                        if (val != null)
+                        return val;
+                    } else {
                         return null;
-                }
+                    }
+                
             case 4:
-                while (current != null) {
-                    if (name.equalsIgnoreCase(((Contact) current.data).getAddress())) {
+                  val = null;
+                    if (name.equalsIgnoreCase(((Contact) node.data).getAddress())) {
+                        current = node;
                         return retrieve();
                     }
-                    if (current.left != null) {
-                        current = current.left;
-                    } else if (current.right != null) {
-                        current = current.right;
-                    } else
+                    if (node.left != null) {
+                        val = find_Others(node.left,name, num);
+                        if (val != null)
+                        return val;
+                    } if (node.right != null) {
+                        val = find_Others(node.right,name, num);
+                        if (val != null)
+                        return val;
+                    } else {
                         return null;
-                }
+                    }
             case 5:
-                while (current != null) {
-                    if (name.equalsIgnoreCase(((Contact) current.data).getBirthday())) {
+                  val = null;
+                    if (name.equalsIgnoreCase(((Contact) node.data).getAddress())) {
+                        current = node;
                         return retrieve();
                     }
-                    if (current.left != null) {
-                        current = current.left;
-                    } else if (current.right != null) {
-                        current = current.right;
-                    } else
+                    if (node.left != null) {
+                        val = find_Others(node.left,name, num);
+                        if (val != null)
+                        return val;
+                    } if (node.right != null) {
+                        val = find_Others(node.right,name, num);
+                        if (val != null)
+                        return val;
+                    } else {
                         return null;
-                }
+                    }
 
         }
         return null;

@@ -64,9 +64,7 @@ public class LinkedList<T> { // start LinkedList
 
     }
 
-    private boolean dateTimeConflictEvent(Node<T> head, Event event) {// cheack if there is an event that has the same
-        // DateAndTime and the same name, Assuming the name of
-        // contact is unique.
+    private boolean dateTimeConflictEvent(Node<T> head, Event event) {// cheack if there is an event that has the same DateAndTime
         current = head;
         while (current != null) {
             Event existingEvent = (Event) current.getData();
@@ -130,22 +128,7 @@ public class LinkedList<T> { // start LinkedList
             }
         }
 
-        if (!containsContact) {
-            // Delete the last node if no non-empty contact name was found in the entire
-            // list
-            // Assuming head is a reference to the start of the linked list
-            if (head != null) {
-                if (head.getNext() == null) {
-                    head = null;
-                } else {
-                    Node<T> temp = head;
-                    while (temp.getNext().getNext() != null) {
-                        temp = temp.getNext();
-                    }
-                    temp.setNext(null);
-                }
-            }
-        }
+       
     }
 
     public void SearchEvent(Node<T> head, String name, int num) { // O(n)
