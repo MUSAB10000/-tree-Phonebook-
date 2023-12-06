@@ -77,7 +77,7 @@ public class PhoneBook {
                         case 2:
                             System.out.println("Enter the contact's phone number:");
                             phoneNumber = input.next();
-                            c = contacts.find_Others(phoneNumber, choice2);
+                            c = contacts.find_Others(contacts.getroot(),phoneNumber, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
@@ -89,7 +89,7 @@ public class PhoneBook {
                             System.out.println("Enter the contact's email address:");
                             email = input.next();
                             email += input.nextLine();
-                            c = contacts.find_Others(email, choice2);
+                            c = contacts.find_Others(contacts.getroot(),email, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
@@ -101,7 +101,7 @@ public class PhoneBook {
                             System.out.println("Enter the contact's address: ");
                             address = input.next();
                             address += input.nextLine();
-                            c = contacts.find_Others(address, choice2);
+                            c = contacts.find_Others(contacts.getroot(),address, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());
@@ -112,7 +112,7 @@ public class PhoneBook {
                         case 5:
                             System.out.println("Enter the contact's birthday: ");
                             birthday = input.next();
-                            c = contacts.find_Others(birthday, choice2);
+                            c = contacts.find_Others(contacts.getroot(),birthday, choice2);
                             if (c != null) {
                                 System.out.println("contact found!");
                                 System.out.println(c.toString());

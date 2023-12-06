@@ -68,7 +68,7 @@ public class Contact_BST<T> {
     private boolean ContactExist(Contact contact) {
         // Check if a contact with the same name or phone number already exists in the
         // BST
-        if (find_name(contact.getContactName()) != null || find_Others(contact.getPhoneNumber(), 2) != null)
+        if (find_name(contact.getContactName()) != null || find_Others(root,contact.getPhoneNumber(), 2) != null)
             return true;
 
         return false;
@@ -92,25 +92,31 @@ public class Contact_BST<T> {
 
     }// end Search
 
-    public T find_Others(String name, int num) {// average case O(log n) worst case O(n)
+    public T find_Others(BSTNode<T> node, String name, int num) {// average case O(log n) worst case O(n)
         if (empty()) {
             return null;
         }
         current = root;
         BSTNode<T> q = (BSTNode<T>) current;
         switch (num) {
-            case 2:
-                while (current != null) {
-                    if (name.equalsIgnoreCase(((Contact) current.data).getPhoneNumber())) {
+            case 2: 
+                    T val = null;
+                    if (name.equalsIgnoreCase(((Contact) node.data).getPhoneNumber())) {
+                        current = node;
                         return retrieve();
                     }
-                    if (current.left != null) {
-                        current = current.left;
-                    } else if (current.right != null) {
-                        current = current.right;
-                    } else
+                    if (node.left != null) {
+                        val = find_Others(node.left,name, num);
+                        if (val != null)
+                        return val;
+                    } if (node.right != null) {
+                        val = find_Others(node.right,name, num);
+                        if (val != null)
+                        return val;
+                    } else {
                         return null;
-                }
+                    }
+                
 
             case 3:
                 while (current != null) {
